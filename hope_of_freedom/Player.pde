@@ -1,7 +1,8 @@
 class Player {
-  int x, y;
-  float refresco;
-  Sprite player;
+  int x, y;               //posicion jugador
+  int controlframe = 0;   //controla que frame se muestra al moverse
+  int sentido = 0;        //controla si se muestra la primera fila de frames o la segunda cambiando el valor en y de copy.
+
   
   Player(int tempX, int tempY){
    x = tempX;
@@ -9,19 +10,25 @@ class Player {
   }
   
   void displayYmover() {
-   fill(5);
-   rect(x,y,60,120);
+   copy(player1,controlframe,sentido,70,120,x,y,100,150);
    
    if(keyPressed){
-    if(key == 'w')
-    y-=5;
-    else if(key == 's')
-    y+=5;
-    else if(key == 'a')
+     
+    if(key == 'a'){
+    controlframe += 70;
+    sentido = 0;
     x-=4;
-    else if(key == 'd')
+    }
+    else if(key == 'd'){
+    controlframe += 70;
+    sentido = 120;
     x+=4;
+    }
    }
+   
+   if(controlframe == 280)
+   controlframe=0;
+   
   }
   
   

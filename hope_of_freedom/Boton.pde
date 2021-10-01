@@ -2,6 +2,7 @@ class Boton {
   int x, y, w, h;
   String text;
   
+  
   Boton(int posX, int posY, int ancho, int alto, String texto) {
     x = posX;
     y = posY;
@@ -33,16 +34,20 @@ class Boton {
   }
   
   void update(){
-    if(mousePressed && mouseX>jugar.x && mouseX<jugar.x+w && mouseY>jugar.y && mouseY<jugar.y+h){
+    if(mousePressed && mouseX>jugar.x && mouseX<jugar.x+w && mouseY>jugar.y && mouseY<jugar.y+h)
+     escenario = 2; 
+     else if(mousePressed && mouseX>instrucciones.x && mouseX<instrucciones.x+w && mouseY>instrucciones.y && mouseY<instrucciones.y+h)
      escenario = 1; 
-    }
-    
-    if(mousePressed && mouseX>salir.x && mouseX<salir.x+w && mouseY>salir.y && mouseY<salir.y+h){
+     else if(mousePressed && mouseX>volver.x && mouseX<volver.x+w && mouseY>volver.y && mouseY<volver.y+h)
+     escenario = 0; 
+     else if(mousePressed && mouseX>salir.x && mouseX<salir.x+w && mouseY>salir.y && mouseY<salir.y+h)
      exit(); 
     }
     
     
-  }  
+}
+    
+    
+   
   
-}  
   

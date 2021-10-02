@@ -6,11 +6,13 @@ PImage player1;  //spritesheet del pj
 
 int escenario = 0;  //el juego empieza en el menu
 
+
+boolean menuabierto = false;
+
 Boton jugar;
 Boton instrucciones;
 Boton volver;
 Boton salir;
-Boton returngame;
 Boton returnmenu;
 Player pj;
 
@@ -32,8 +34,7 @@ void setup() {
  instrucciones = new Boton(200,400,350,100,"COMO JUGAR?");
  volver = new Boton(492,height-150,300,100,"VOLVER");
  salir = new Boton(200,550,350,100,"SALIR");
- returngame = new Boton(822,60,400,100,"VOLVER AL JUEGO");
- returnmenu = new Boton(822,210,400,100,"VOLVER AL MENU");
+ returnmenu = new Boton(823,560,400,100,"VOLVER AL MENU");
 
 }
 
@@ -59,30 +60,26 @@ void draw() {
    volver.updateVolver();
    break;
    
-   case 2: //ventana de opciones
-   stroke(216,196,116);
-   fill(17,16,50);
-   rect(774,10,500,350);
-   returngame.displayDetect();
-   returngame.updateReturngame();
-   returnmenu.displayDetect();
-   returnmenu.updateReturnmenu();
-   
-   break;
-   
-   case 3: //escenario sala 1
+   case 2: //escenario sala 1
    background(255,0,0);
    pj.displayYmover();
    break;
   }
+  
+   if(key == BACKSPACE && escenario != 0 && escenario != 1){
+   menuabierto = true;
+   if (menuabierto == true){
+   stroke(216,196,116);
+   fill(17,16,50);
+   rect(774,10,500,700);
+   
+   returnmenu.displayDetect();
+   returnmenu.updateReturnmenu();}
+   }   
 
 }
 
-void keyPressed(){ //presionar ESC devuelve al menu en lugar de cerrar el programa
-  if(key == ESC){
-  key = 0;
-  if(escenario != 0 && escenario != 1)
-  escenario = 2;
-  }
-  
+void keyPressed(){ 
+  if(key == ESC)//presionar ESC dentro del juego abre el menu de pausa en lugar de cerrar el programa
+  key = 0;       
 }

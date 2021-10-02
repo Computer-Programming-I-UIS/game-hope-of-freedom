@@ -4,7 +4,7 @@ PImage controles;
 PImage player1;  //spritesheet del pj
 
 
-int escenario = 0;
+int escenario = 0;  //el juego empieza en el menu
 
 Boton jugar;
 Boton instrucciones;
@@ -16,7 +16,7 @@ Player pj;
 void setup() {
 
  size(1284,720);
- frameRate(30);
+ frameRate(60);
  
  //-------------------------------- cargar archivos
  fuente = createFont("Minecraft.ttf",40);
@@ -39,7 +39,7 @@ void draw() {
   
   switch(escenario){
   
-   case 0: image(menu,0,0);
+   case 0: image(menu,0,0); //escenario menu
    jugar.displayDetect();
    jugar.update();
    instrucciones.displayDetect();
@@ -48,13 +48,13 @@ void draw() {
    salir.update();
    break;
    
-   case 1:
+   case 1: //escenario instrucciones de juego
    image(controles,0,0);
    volver.displayDetect();
    volver.update();
    break;
    
-   case 2:
+   case 2: //escenario sala1
    background(255);
    pj.displayYmover();
    break;

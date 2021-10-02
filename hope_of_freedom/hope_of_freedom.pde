@@ -32,12 +32,13 @@ void setup() {
  instrucciones = new Boton(200,400,350,100,"COMO JUGAR?");
  volver = new Boton(492,height-150,300,100,"VOLVER");
  salir = new Boton(200,550,350,100,"SALIR");
- returngame = new Boton(442,100,400,100,"VOLVER AL JUEGO");
- returnmenu = new Boton(442,250,400,100,"VOLVER AL MENU");
+ returngame = new Boton(822,60,400,100,"VOLVER AL JUEGO");
+ returnmenu = new Boton(822,210,400,100,"VOLVER AL MENU");
 
 }
 
 void draw() {
+  
   println(escenario);
   textFont(fuente);
   
@@ -61,7 +62,7 @@ void draw() {
    case 2: //ventana de opciones
    stroke(216,196,116);
    fill(17,16,50);
-   rect(392,50,500,350);
+   rect(774,10,500,350);
    returngame.displayDetect();
    returngame.updateReturngame();
    returnmenu.displayDetect();
@@ -70,7 +71,7 @@ void draw() {
    break;
    
    case 3: //escenario sala 1
-   background(255);
+   background(255,0,0);
    pj.displayYmover();
    break;
   }

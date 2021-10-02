@@ -2,7 +2,6 @@ class Boton {
   int x, y, w, h;
   String text;
   
-  
   Boton(int posX, int posY, int ancho, int alto, String texto) { //constructor
     x = posX;
     y = posY;

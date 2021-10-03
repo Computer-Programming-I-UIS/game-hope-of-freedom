@@ -39,8 +39,10 @@ class Player {
    
    if(keyPressed == false)  //si el pj no se mueve el sprite cambia al que esta quieto de pie, evitando que se quede quieto en un frame de movimiento
      controlframe = 0;
-   
+     
+     
   }
+  
   
   
 }

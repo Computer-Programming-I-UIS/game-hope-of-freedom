@@ -2,20 +2,22 @@ PFont fuente;
 PImage menu;
 PImage controles;
 PImage player1;  //spritesheet del pj
+PImage signo;
 
 
 int escenario = 0;  //el juego empieza en el menu
 
-
-boolean menuabierto = false;
-
+//----------------------------- Declaración de objetos
 Boton jugar;
 Boton instrucciones;
 Boton volver;
 Boton salir;
 Boton returnmenu;
 Player pj;
+Puerta puerta1;
 
+float introduccion = 0;  //controla el tiempo de introduccion del juego.
+String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pausa
 
 void setup() {
 
@@ -27,32 +29,57 @@ void setup() {
  menu = loadImage("menu.png");
  controles = loadImage("instrucciones.png");
  player1 = loadImage("player.png");
+ signo = loadImage("signointer.png");
  
  //-------------------------------- crear objetos 
+ introduccion = millis();
+
  pj = new Player(100,360);
  jugar = new Boton(200,250,350,100,"JUGAR");
  instrucciones = new Boton(200,400,350,100,"COMO JUGAR?");
  volver = new Boton(492,height-150,300,100,"VOLVER");
  salir = new Boton(200,550,350,100,"SALIR");
  returnmenu = new Boton(823,560,400,100,"VOLVER AL MENU");
+ puerta1 = new Puerta(500,360,80,130);
 
 }
 
 void draw() {
   
   println(escenario);
+   println(millis());
   textFont(fuente);
   
   switch(escenario){
   
-   case 0: image(menu,0,0); //escenario menu
-   jugar.displayDetect();
-   jugar.updateJugar();
-   instrucciones.displayDetect();
-   instrucciones.updateInstrucciones();
-   salir.displayDetect();
-   salir.updateSalir();
-   break;
+   case 0:  //escenario intro y menu
+//   strokeWeight(20);
+//   stroke(222,191,65);
+//   fill(5,7,15);
+// rect(0,0,width,height);
+//   
+//   if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
+//     fill(222,191,65);
+//     text("Pero... Que es este lugar?!!",100,100);
+//   if(millis() > introduccion + 2500 && millis() < introduccion + 15000){
+//     text("Esta no parece ser tu habitacion...",100,200);
+//     }
+//   if(millis() > introduccion + 5000 && millis() < introduccion + 15000){
+//     text("Alguien debio haberte traido aqui mientras dormias...\nPero...Quien fue?",100,300);
+//     }
+//   if(millis() > introduccion + 7500 && millis() < introduccion + 15000){
+//     text("Como sea ... sera mejor que busques una forma\nde salir de aqui.",100,450);
+//     }
+//   } else if (millis() > introduccion + 15000){  
+     image(menu,0,0);
+     jugar.displayDetect();
+     jugar.updateJugar();
+     instrucciones.displayDetect();
+     instrucciones.updateInstrucciones();
+     salir.displayDetect();
+     salir.updateSalir(); 
+//   }
+     break;
    
    case 1: //escenario instrucciones de juego
    image(controles,0,0);
@@ -62,19 +89,23 @@ void draw() {
    
    case 2: //escenario sala 1
    background(255,0,0);
+   rect(500,360,80,130);
    pj.displayYmover();
+   puerta1.Detect();
+   puerta1.viajar();
    break;
   }
   
-   if(key == BACKSPACE && escenario != 0 && escenario != 1){
-   menuabierto = true;
-   if (menuabierto == true){
+   if(key == BACKSPACE && escenario != 0 && escenario != 1){ //abrir inventario
    stroke(216,196,116);
    fill(17,16,50);
    rect(774,10,500,700);
-   
+   fill(222,191,65);
+   textSize(25);
+   text(pausa,1025,60);
+   textSize(35);
    returnmenu.displayDetect();
-   returnmenu.updateReturnmenu();}
+   returnmenu.updateReturnmenu();
    }   
 
 }

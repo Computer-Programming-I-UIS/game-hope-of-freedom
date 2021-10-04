@@ -3,7 +3,7 @@ PImage menu;
 PImage controles;
 PImage player1;  //spritesheet del pj
 PImage signo;
-
+PImage jardin1;
 
 int escenario = 0;  //el juego empieza en el menu
 
@@ -30,6 +30,7 @@ void setup() {
  controles = loadImage("instrucciones.png");
  player1 = loadImage("player.png");
  signo = loadImage("signointer.png");
+ jardin1 = loadImage("jardin1.png");
  
  //-------------------------------- crear objetos 
  introduccion = millis();
@@ -46,8 +47,7 @@ void setup() {
 
 void draw() {
   
-  println(escenario);
-   println(millis());
+  println(pj.x);
   textFont(fuente);
   
   switch(escenario){
@@ -94,7 +94,15 @@ void draw() {
    puerta1.Detect();
    puerta1.viajar();
    break;
+   
+   case 3:
+   image(jardin1,0,0);
+   pj.displayYmover();
+   break;
+   
   }
+  
+  
   
    if(key == BACKSPACE && escenario != 0 && escenario != 1){ //abrir inventario
    stroke(216,196,116);

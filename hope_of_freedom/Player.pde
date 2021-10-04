@@ -10,19 +10,19 @@ class Player {
   }
   
   void displayYmover() {  //muestra al jugador en pantalla y controla sus movimientos y animaciones
-   copy(player1,controlframe,sentido,70,120,x,y,100,150);
+   copy(player1,controlframe,sentido,70,120,this.x,y,100,150);
    
    if(keyPressed){
      
     if(key == 'a' || key == 'A'){      //pj se mueve a la izquierda
-    x-=6;
+    this.x-=6;
     if(tiempof == 2){              
     controlframe += 70;   
     sentido = 0;}
     
     }
     else if(key == 'd' || key == 'D'){  //pj se mueve a la derecha
-    x+=6;
+    this.x+=6;
     if(tiempof == 2){
     controlframe += 70;
     sentido = 120;}

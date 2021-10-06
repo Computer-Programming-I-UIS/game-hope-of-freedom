@@ -4,6 +4,7 @@ PImage controles;
 PImage player1;  //spritesheet del pj
 PImage signo;
 PImage textboxi;
+PImage bateria;
 PImage salaoff;
 PImage salaon;
 PImage jardin1;
@@ -20,7 +21,10 @@ Boton returnmenu;
 Player pj;
 Puerta puerta1;
 Item lampara;
+Item cajonbateria;
+Textbox bat1;
 Textbox lamp1;
+Textbox p1;
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
@@ -38,6 +42,7 @@ void setup() {
  player1 = loadImage("player.png");
  signo = loadImage("signointer.png");
  textboxi = loadImage("textbox.png");
+ bateria = loadImage("bateria.png");
  salaoff = loadImage("sala1off.png");
  salaon = loadImage("sala1on.png");
  jardin1 = loadImage("jardin1.png");
@@ -52,8 +57,11 @@ void setup() {
  salir = new Boton(200,550,350,100,"SALIR");
  returnmenu = new Boton(823,560,400,100,"VOLVER AL MENU");
  puerta1 = new Puerta(1050,360,80,130);
+ cajonbateria = new Item(720,360,80,130);
+ bat1 = new Textbox("La cerradura esta rota, adentro hay...\nuna bateria?...Vale, servira de algo...",625,550,380,240);
  lampara = new Item(420,360,80,130);
  lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
+ p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal",625,550,380,240);;
 
 }
 
@@ -104,8 +112,10 @@ void draw() {
    pj.x = constrain(pj.x,60,1120);
    puerta1.Detect();
    puerta1.viajar();
+   cajonbateria.Detect();
+   cajonbateria.interactuarB();
    lampara.Detect();
-   lampara.interactuar();
+   lampara.interactuarL();
    break;
    
    case 3:

@@ -3,11 +3,13 @@ PImage menu;
 PImage controles;
 PImage player1;  //spritesheet del pj
 PImage signo;
+PImage textboxi;
 PImage salaoff;
 PImage salaon;
 PImage jardin1;
 
 int escenario = 0;  //el juego empieza en el menu
+int savestate = 0;  //guarda el valor del último e
 
 //----------------------------- Declaración de objetos
 Boton jugar;
@@ -17,6 +19,9 @@ Boton salir;
 Boton returnmenu;
 Player pj;
 Puerta puerta1;
+Item lampara;
+Textbox lamp1;
+
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
 String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pausa
@@ -32,6 +37,7 @@ void setup() {
  controles = loadImage("instrucciones.png");
  player1 = loadImage("player.png");
  signo = loadImage("signointer.png");
+ textboxi = loadImage("textbox.png");
  salaoff = loadImage("sala1off.png");
  salaon = loadImage("sala1on.png");
  jardin1 = loadImage("jardin1.png");
@@ -46,12 +52,13 @@ void setup() {
  salir = new Boton(200,550,350,100,"SALIR");
  returnmenu = new Boton(823,560,400,100,"VOLVER AL MENU");
  puerta1 = new Puerta(1050,360,80,130);
+ lampara = new Item(420,360,80,130);
+ lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
 
 }
 
 void draw() {
   
-  println(pj.x);
   textFont(fuente);
   
   switch(escenario){
@@ -66,13 +73,13 @@ void draw() {
 //     fill(222,191,65);
 //     text("Pero... Que es este lugar?!!",100,100);
 //   if(millis() > introduccion + 2500 && millis() < introduccion + 15000){
-//     text("Esta no parece ser tu habitacion...",100,200);
+//     text("Esta no parece ser mi habitacion...",100,200);
 //     }
 //   if(millis() > introduccion + 5000 && millis() < introduccion + 15000){
-//     text("Alguien debio haberte traido aqui mientras dormias...\nPero...Quien fue?",100,300);
+//     text("Alguien debio haberme traido aqui mientras dormias...\nPero...Quien fue?",100,300);
 //     }
 //   if(millis() > introduccion + 7500 && millis() < introduccion + 15000){
-//     text("Como sea ... sera mejor que busques una forma\nde salir de aqui.",100,450);
+//     text("Como sea ... sera mejor que busque una forma\nde salir de aqui.",100,450);
 //     }
 //   } else if (millis() > introduccion + 15000){  
      image(menu,0,0);
@@ -94,8 +101,11 @@ void draw() {
    case 2: //escenario sala 1
    image(salaoff,0,0);
    pj.displayYmover();
+   pj.x = constrain(pj.x,60,1120);
    puerta1.Detect();
    puerta1.viajar();
+   lampara.Detect();
+   lampara.interactuar();
    break;
    
    case 3:

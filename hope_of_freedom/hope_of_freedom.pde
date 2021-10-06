@@ -22,8 +22,10 @@ Player pj;
 Puerta puerta1;
 Item lampara;
 Item cajonbateria;
+Item cuadro;
 Textbox bat1;
 Textbox lamp1;
+Textbox cuad1;
 Textbox p1;
 
 
@@ -61,6 +63,8 @@ void setup() {
  bat1 = new Textbox("La cerradura esta rota, adentro hay...\nuna bateria?...Vale, servira de algo...",625,550,380,240);
  lampara = new Item(420,360,80,130);
  lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
+ cuadro = new Item(220,360,80,130);
+ cuad1 = new Textbox("Es una pintura de una galleta con chips de chocolate...\nSe parece mucho a la que tengo en la camisa",635,560,380,240);
  p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal",625,550,380,240);;
 
 }
@@ -72,25 +76,25 @@ void draw() {
   switch(escenario){
   
    case 0:  //escenario intro y menu
-//   strokeWeight(20);
-//   stroke(222,191,65);
-//   fill(5,7,15);
-// rect(0,0,width,height);
-//   
-//   if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
-//     fill(222,191,65);
-//     text("Pero... Que es este lugar?!!",100,100);
-//   if(millis() > introduccion + 2500 && millis() < introduccion + 15000){
-//     text("Esta no parece ser mi habitacion...",100,200);
-//     }
-//   if(millis() > introduccion + 5000 && millis() < introduccion + 15000){
-//     text("Alguien debio haberme traido aqui mientras dormias...\nPero...Quien fue?",100,300);
-//     }
-//   if(millis() > introduccion + 7500 && millis() < introduccion + 15000){
-//     text("Como sea ... sera mejor que busque una forma\nde salir de aqui.",100,450);
-//     }
-//   } else if (millis() > introduccion + 15000){  
-     image(menu,0,0);
+   strokeWeight(20);
+   stroke(222,191,65);
+   fill(5,7,15);
+ rect(0,0,width,height);
+   
+/*   if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
+     fill(222,191,65);
+     text("Pero... Que es este lugar?!!",100,100);
+   if(millis() > introduccion + 2500 && millis() < introduccion + 15000){
+     text("Esta no parece ser mi habitacion...",100,200);
+     }
+   if(millis() > introduccion + 5000 && millis() < introduccion + 15000){
+     text("Alguien debio haberme traido aqui mientras dormia...\nPero...Quien fue?",100,300);
+     }
+   if(millis() > introduccion + 7500 && millis() < introduccion + 15000){
+     text("Como sea ... sera mejor que busque una forma\nde salir de aqui.",100,450);
+     }
+   } else if (millis() > introduccion + 15000){  
+*/   image(menu,0,0);
      jugar.displayDetect();
      jugar.updateJugar();
      instrucciones.displayDetect();
@@ -112,6 +116,8 @@ void draw() {
    pj.x = constrain(pj.x,60,1120);
    puerta1.Detect();
    puerta1.viajar();
+   cuadro.Detect();
+   cuadro.interactuarC();
    cajonbateria.Detect();
    cajonbateria.interactuarB();
    lampara.Detect();

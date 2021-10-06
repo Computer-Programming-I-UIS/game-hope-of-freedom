@@ -1,13 +1,20 @@
 class Item extends Objinter {
   
+  boolean conseguido = false;
+  
   Item(int xp, int yp, int wp, int hp){
   super(xp,yp,wp,hp);
   }
   
+  void interactuarC(){
+  if(key == 'w' && pj.x +60 > x && pj.x +40 < x + w)
+  cuad1.display();
+  }  
+  
   void interactuarB(){
   if(key == 'w' && pj.x +60 > x && pj.x +40 < x + w)
   bat1.display();
-  }
+  }  
 
   void interactuarL(){
   if(key == 'w' && pj.x +60 > x && pj.x +40 < x + w)  

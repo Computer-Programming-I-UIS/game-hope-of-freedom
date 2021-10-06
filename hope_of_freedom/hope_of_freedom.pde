@@ -3,6 +3,8 @@ PImage menu;
 PImage controles;
 PImage player1;  //spritesheet del pj
 PImage signo;
+PImage salaoff;
+PImage salaon;
 PImage jardin1;
 
 int escenario = 0;  //el juego empieza en el menu
@@ -30,6 +32,8 @@ void setup() {
  controles = loadImage("instrucciones.png");
  player1 = loadImage("player.png");
  signo = loadImage("signointer.png");
+ salaoff = loadImage("sala1off.png");
+ salaon = loadImage("sala1on.png");
  jardin1 = loadImage("jardin1.png");
  
  //-------------------------------- crear objetos 
@@ -41,7 +45,7 @@ void setup() {
  volver = new Boton(492,height-150,300,100,"VOLVER");
  salir = new Boton(200,550,350,100,"SALIR");
  returnmenu = new Boton(823,560,400,100,"VOLVER AL MENU");
- puerta1 = new Puerta(500,360,80,130);
+ puerta1 = new Puerta(1050,360,80,130);
 
 }
 
@@ -88,14 +92,20 @@ void draw() {
    break;
    
    case 2: //escenario sala 1
-   background(255,0,0);
-   rect(500,360,80,130);
+   image(salaoff,0,0);
    pj.displayYmover();
    puerta1.Detect();
    puerta1.viajar();
    break;
    
    case 3:
+   background(255,0,0);
+   rect(500,360,80,130);
+   pj.displayYmover();
+
+   break;
+   
+   case 4:
    image(jardin1,0,0);
    pj.displayYmover();
    break;

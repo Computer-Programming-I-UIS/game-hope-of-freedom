@@ -1,4 +1,4 @@
-class Objinter {
+class Objinter { //superclase de los objetos interactuables que comparten el metodo "Detect"
  int x, y, w, h;
  
  Objinter(int xp, int yp, int wp, int hp){

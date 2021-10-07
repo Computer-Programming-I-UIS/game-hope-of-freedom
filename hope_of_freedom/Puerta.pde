@@ -1,4 +1,4 @@
-class Puerta extends Objinter {
+class Puerta extends Objinter { //Para cambiar de escenario si se cumplen las condiciones
   
   boolean abierta = false;
   
@@ -6,13 +6,22 @@ class Puerta extends Objinter {
   super(xp,yp,wp,hp);
   }
   
-  void viajar() {
+  void viajarJ() {
    if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
-   if(abierta == true){  
-   pj.x = 100; 
-   escenario = 3;}
-   else p1.display();
-  }
+   if(abierta == true){
+   pj.x = 150; 
+   escenario = 4;
+   estadocuadro = 3;
+   } else p1.display();
+   }
   
-}
+   }
+   
+   void viajarS() {
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   pj.x = 950; 
+   escenario = 2;
+   }
+   }
+   
 }

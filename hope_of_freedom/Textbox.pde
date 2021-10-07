@@ -1,4 +1,4 @@
-class Textbox {
+class Textbox { //para dibujar con mayor eficiencia los cuadros de texto al interactuar con un objeto.
 int x, y, w, h; 
 String m;
  

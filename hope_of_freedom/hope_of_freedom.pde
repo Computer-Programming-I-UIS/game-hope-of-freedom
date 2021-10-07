@@ -5,12 +5,15 @@ PImage player1;  //spritesheet del pj
 PImage signo;
 PImage textboxi;
 PImage bateria;
+PImage bateriaused;
 PImage salaoff;
 PImage salaon;
 PImage jardin1;
 
 int escenario = 0;  //el juego empieza en el menu
 int savestate = 0;  //guarda el valor del último e
+int estadobateria = 1;
+int estadocajon = 1;
 
 //----------------------------- Declaración de objetos
 Boton jugar;
@@ -24,7 +27,9 @@ Item lampara;
 Item cajonbateria;
 Item cuadro;
 Textbox bat1;
+Textbox bat2;
 Textbox lamp1;
+Textbox lamp2;
 Textbox cuad1;
 Textbox p1;
 
@@ -45,6 +50,7 @@ void setup() {
  signo = loadImage("signointer.png");
  textboxi = loadImage("textbox.png");
  bateria = loadImage("bateria.png");
+ bateriaused = loadImage("bateria2.png");
  salaoff = loadImage("sala1off.png");
  salaon = loadImage("sala1on.png");
  jardin1 = loadImage("jardin1.png");
@@ -61,8 +67,10 @@ void setup() {
  puerta1 = new Puerta(1050,360,80,130);
  cajonbateria = new Item(720,360,80,130);
  bat1 = new Textbox("La cerradura esta rota, adentro hay...\nuna bateria?...Vale, servira de algo...",625,550,380,240);
+ bat2 = new Textbox("Aqui adentro no hay nada mas que me pueda ser util...",625,580,380,240);
  lampara = new Item(420,360,80,130);
  lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
+ lamp2 = new Textbox("La bateria que tengo encaja en la lampara!!\nAhora el lugar esta mejor iluminado",625,550,380,240);
  cuadro = new Item(220,360,80,130);
  cuad1 = new Textbox("Es una pintura de una galleta con chips de chocolate...\nSe parece mucho a la que tengo en la camisa",635,560,380,240);
  p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal",625,550,380,240);;
@@ -150,6 +158,11 @@ void draw() {
    textSize(35);
    returnmenu.displayDetect();
    returnmenu.updateReturnmenu();
+   savestate = escenario;
+   if(estadobateria == 2)
+   image(bateria,850,150);
+   else if(estadobateria == 3)
+   image(bateriaused,850,150);
    }   
 
 }

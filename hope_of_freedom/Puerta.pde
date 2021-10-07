@@ -7,7 +7,7 @@ class Puerta extends Objinter {
   }
   
   void viajar() {
-   if(key == 'w' && pj.x +60 > x && pj.x +40 < x + w){
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
    if(abierta == true){  
    pj.x = 100; 
    escenario = 3;}

@@ -12,12 +12,15 @@ PImage salaoff;
 PImage salaon;
 PImage jardin1;
 
+
+//variables globales
 int escenario = 0;  //el juego empieza en el menu
 int savestate = 0;  //guarda el valor del último e
 int estadobateria = 1;
 int estadocajon = 1;
 int estadocuadro = 1;
 boolean luzlamp = false;
+boolean cuadron = false;
 
 //----------------------------- Declaración de objetos
 Boton jugar;
@@ -31,6 +34,7 @@ Puerta puerta2;
 Item lampara;
 Item cajonbateria;
 Item cuadro;
+Item tablero;
 Textbox bat1;
 Textbox bat2;
 Textbox lamp1;
@@ -38,11 +42,18 @@ Textbox lamp2;
 Textbox lamp3;
 Textbox cuad1;
 Textbox cuad2;
+Textbox cuad3;
+Textbox tabler1;
 Textbox p1;
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
 String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pausa
+
+//Minim
+import ddf.minim.*;
+Minim minim;
+AudioPlayer salasound;
 
 void setup() {
 
@@ -66,6 +77,9 @@ void setup() {
  
  //-------------------------------- crear objetos 
  introduccion = millis();
+ 
+ minim = new Minim(this);
+ salasound = minim.loadFile("shadydave__snowfall-final.mp3");
 
  pj = new Player(100,360);
  jugar = new Boton(200,250,350,100,"JUGAR");
@@ -81,10 +95,13 @@ void setup() {
  lampara = new Item(420,360,80,130);
  lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
  lamp2 = new Textbox("La bateria que tengo encaja en la lampara!!\nAhora el lugar esta mejor iluminado!",625,550,380,240);
- lamp3 = new Textbox("La lampara ya esta encendida...el proximo brillo\nque me gustaria ver es el del sol...",625,550,380,240); 
+ lamp3 = new Textbox("La lampara ya esta encendida...el brillo le da\nun mejor ambiente a esta claustrofobica situacion...",625,550,380,240);
+ tablero = new Item(890,360,80,130);
+ tabler1 = new Textbox("El tablero dice: Uno, Dos y Tres son  hermanos muy cercanos,\nUno tiene media decada\nDos ha vivido el doble que el hermano de menor edad\nTres le hace honor a su nombre...que edad tienen los hermanos?",625,515,380,240);
  cuadro = new Item(220,360,80,130);
  cuad1 = new Textbox("Es una pintura de una galleta con chispas de chocolate,\nse parece mucho a la que tengo en la camisa...",635,560,380,240);
  cuad2 = new Textbox("Hay una parte del cuadro que no esta pintada...\nEsto es...Una chispa de chocolate redonda??",625,550,380,240);
+ cuad3 = new Textbox("Esta pintura no parece tener nada mas util.",625,580,380,240);
  p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);;
 
 }
@@ -92,7 +109,7 @@ void setup() {
 void draw() {
   
   textFont(fuente);
-  println(estadocuadro);
+  println(frameRate);
   switch(escenario){
   
    case 0:  //escenario intro y menu
@@ -131,6 +148,8 @@ void draw() {
    break;
    
    case 2: //escenario sala 1
+   if(!salasound.isPlaying())
+   salasound.loop();
    if(luzlamp == false)
    background(salaoff);
    else
@@ -145,6 +164,8 @@ void draw() {
    cajonbateria.interactuarB();
    lampara.Detect();
    lampara.interactuarL();
+   tablero.Detect();
+   tablero.interactuarT();
    break;
    
    case 3:
@@ -157,6 +178,7 @@ void draw() {
    case 4:
    background(jardin1);
    pj.displayYmover();
+   pj.x = constrain(pj.x,10,1120);
    puerta2.Detect();
    puerta2.viajarS();
    break;

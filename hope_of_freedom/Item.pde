@@ -6,15 +6,20 @@ class Item extends Objinter {
   }
   
   void interactuarC(){  //interacciones con el cuadro de la galleta
-  if((key == 'w' || key == 'W')&& pj.x +60 > x && pj.x +40 < x + w)
-  if(luzlamp == false)
-  cuad1.display();
-  else {
+  if((key == 'w' || key == 'W')&& pj.x +60 > x && pj.x +40 < x + w){
+  if(cuadron == true)
+  cuad3.display();
+  else if(luzlamp == false){
+  cuad1.display();}
+  else if (luzlamp == true){
   cuad2.display();
-  text("Has conseguido un chip de chocolate",400,100);
+  text("Has conseguido una chispa de chocolate",420,100);
   estadocuadro = 2;
   puerta1.abierta = true;
   }
+  
+  }
+  
   }  
   
   void interactuarB(){ //interacciones con el cajon donde esta la bateria
@@ -28,8 +33,7 @@ class Item extends Objinter {
   }
   }  
 
-  void interactuarL(){ //interacciones con la lampara
-  
+  void interactuarL(){ //interacciones con la lampara  
   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){  
   if(estadobateria == 1){
    lamp1.display();
@@ -44,7 +48,15 @@ class Item extends Objinter {
   lamp3.display();  
   }
 }
-
 }
 
-}
+  void interactuarT(){
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   textSize(30);  
+   tabler1.display();  
+   }
+
+   }
+   
+   
+}   

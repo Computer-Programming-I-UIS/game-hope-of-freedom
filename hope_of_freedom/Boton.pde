@@ -35,18 +35,24 @@ class Boton {
   //métodos para los efectos de cada boton
   
   void updateJugar(){
-     if(mousePressed && mouseX>jugar.x && mouseX<jugar.x+w && mouseY>jugar.y && mouseY<jugar.y+h)
+     if(mousePressed && mouseX>jugar.x && mouseX<jugar.x+w && mouseY>jugar.y && mouseY<jugar.y+h){
      escenario = 2; //ir al primer escenario jugable
+
+     }
   }
     
   void updateInstrucciones(){
-  if(mousePressed && mouseX>instrucciones.x && mouseX<instrucciones.x+w && mouseY>instrucciones.y && mouseY<instrucciones.y+h)
+  if(mousePressed && mouseX>instrucciones.x && mouseX<instrucciones.x+w && mouseY>instrucciones.y && mouseY<instrucciones.y+h){
      escenario = 1; //ir a la pantalla de instrucciones/controles
+     
+     }
   }
   
   void updateVolver(){ 
-  if(mousePressed && mouseX>volver.x && mouseX<volver.x+w && mouseY>volver.y && mouseY<volver.y+h)
+  if(mousePressed && mouseX>volver.x && mouseX<volver.x+w && mouseY>volver.y && mouseY<volver.y+h){
      escenario = 0; //de la pantalla de controles regresarse al menu principal
+
+     }
   }
   
   void updateSalir(){ 

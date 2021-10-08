@@ -71,7 +71,7 @@ String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pau
 import ddf.minim.*;
 Minim minim;
 AudioPlayer salasound;
-AudioPlayer box;
+AudioSample box;
 AudioSample botons;
 
 void setup() {
@@ -100,7 +100,7 @@ void setup() {
  minim = new Minim(this);
  salasound = minim.loadFile("shadydave__snowfall-final.mp3");
  botons = minim.loadSample("kickhat_open-button-2.mp3");
- box = minim.loadFile("cbj-student__pop-1.mp3");
+ box = minim.loadSample("cbj-student__pop-1.mp3");
 
  pj = new Player(100,360);
  jugar = new Boton(200,250,350,100,"JUGAR");
@@ -131,7 +131,7 @@ int u = 0;
 void draw() {
   
   textFont(fuente);
-  println(u);
+  
    
   switch(escenario){
   
@@ -141,7 +141,7 @@ void draw() {
    fill(5,7,15);
    rect(0,0,width,height);
    
-    if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
+/*    if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
      fill(222,191,65);
      text("Pero... Que es este lugar?!!",100,100);
    if(millis() > introduccion + 2500 && millis() < introduccion + 15000){
@@ -154,7 +154,7 @@ void draw() {
      text("Como sea ... sera mejor que busque una forma\nde salir de aqui.",100,450);
      }
    } else if (millis() > introduccion + 15000){  
-     if(!salasound.isPlaying())
+*/     if(!salasound.isPlaying())
      salasound.loop();
      image(menu,0,0);
      jugar.displayDetect();
@@ -163,7 +163,7 @@ void draw() {
      instrucciones.updateInstrucciones();
      salir.displayDetect();
      salir.updateSalir(); 
-     }
+//     }
      break;
    
    case 1: //escenario instrucciones de juego
@@ -212,7 +212,6 @@ void draw() {
   
    
    if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1){ //abrir inventario
-   box.play();
    stroke(216,196,116);
    fill(17,16,50);
    rect(774,10,500,700);
@@ -231,11 +230,31 @@ void draw() {
    image(chispa,990,150);
    if(estadocuadro == 3)
    image(chispaused,990,150);
-   } else box.rewind();   
+   }   
 
 }
 
 void keyPressed(){ 
   if(key == ESC)//presionar ESC dentro del juego abre el menu de pausa en lugar de cerrar el programa
-  key = 0;       
+  key = 0; 
+  
+  //control de sonidos
+  if((key == 'e' || key == 'E') && escenario != 0 && escenario !=1)
+  box.trigger();
+  
+  if((key == 'w' || key == 'W')&& pj.x +60 > cuadro.x && pj.x +40 < cuadro.x + cuadro.w)
+  box.trigger();
+  
+  if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w)
+  box.trigger();
+  
+  if((key == 'w' || key == 'W') && pj.x +60 > lampara.x && pj.x +40 < lampara.x + lampara.w)
+  box.trigger();
+  
+  if((key == 'w' || key == 'W') && pj.x +60 > tablero.x && pj.x +40 < tablero.x + tablero.w)
+  box.trigger();
+  
+  if((key == 'w' || key == 'W') && pj.x +60 > puerta1.x && pj.x +40 < puerta1.x + puerta1.w)
+  box.trigger();
+  
 }

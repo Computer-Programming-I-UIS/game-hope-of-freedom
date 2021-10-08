@@ -6,8 +6,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   }
   
   void interactuarC(){  //interacciones con el cuadro de la galleta
-  if((key == 'w' || key == 'W')&& pj.x +60 > x && pj.x +40 < x + w){
-  box.play();  
+  if((key == 'w' || key == 'W')&& pj.x +60 > x && pj.x +40 < x + w){ 
   if(cuadron == true)
   cuad3.display();
   else if(luzlamp == false){
@@ -24,7 +23,6 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   
   void interactuarB(){ //interacciones con el cajon donde esta la bateria
   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
-  box.play();
   if(estadocajon == 0){
   bat0.display();}
   if(estadocajon == 1){ 
@@ -38,7 +36,6 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
 
   void interactuarL(){ //interacciones con la lampara  
   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
-  box.play();
   if(estadobateria == 1){
    lamp1.display();
 
@@ -55,8 +52,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
 }
 
   void interactuarT(){
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
-   box.play();  
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){  
    textSize(30);  
    tabler1.display();
    estadocajon = 1;

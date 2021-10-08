@@ -61,9 +61,10 @@ class Boton {
   }
   
   void updateReturnmenu(){ 
-  if(mousePressed && mouseX>returnmenu.x && mouseX<returnmenu.x+w && mouseY>returnmenu.y && mouseY<returnmenu.y+h)
+  if(mousePressed && mouseX>returnmenu.x && mouseX<returnmenu.x+w && mouseY>returnmenu.y && mouseY<returnmenu.y+h){
      escenario = 0; //volver al menu principal desde el juego
-     
+     botons.trigger();
+     }
   }  
   
 }    

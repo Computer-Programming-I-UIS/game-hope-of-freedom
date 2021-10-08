@@ -37,21 +37,21 @@ class Boton {
   void updateJugar(){
      if(mousePressed && mouseX>jugar.x && mouseX<jugar.x+w && mouseY>jugar.y && mouseY<jugar.y+h){
      escenario = 2; //ir al primer escenario jugable
-
+     botons.trigger();
      }
   }
     
   void updateInstrucciones(){
   if(mousePressed && mouseX>instrucciones.x && mouseX<instrucciones.x+w && mouseY>instrucciones.y && mouseY<instrucciones.y+h){
      escenario = 1; //ir a la pantalla de instrucciones/controles
-     
+     botons.trigger();
      }
   }
   
   void updateVolver(){ 
   if(mousePressed && mouseX>volver.x && mouseX<volver.x+w && mouseY>volver.y && mouseY<volver.y+h){
      escenario = 0; //de la pantalla de controles regresarse al menu principal
-
+     botons.trigger();
      }
   }
   
@@ -63,6 +63,7 @@ class Boton {
   void updateReturnmenu(){ 
   if(mousePressed && mouseX>returnmenu.x && mouseX<returnmenu.x+w && mouseY>returnmenu.y && mouseY<returnmenu.y+h)
      escenario = 0; //volver al menu principal desde el juego
+     
   }  
   
 }    

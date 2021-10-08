@@ -1,3 +1,18 @@
+/********************************************************+++++++++++++++++++++++++++++++++++++++++++++++++
+
+---------------------------------------------Hope of Freedom---------------------------------------------
+
+Autor: Daniel Ricardo Guerrero Cruz - 2200535
+
+Descripción: Este videojuego fue realizado como Proyecto final en el curso Programación de computadores I.
+El videojuego es sobre un joven atrapado en una habitación misteriosa, debe buscar la manera de escapar
+explorando el entorno, interactuando con los objetos y resolviendo puzzles.
+Más información disponible en el Readme de github.
+
+Requiere instalar la librería Minim.
+
+**************************************************+++++++++++++++++++++++++++++++++++++++++++++++++******/
+
 PFont fuente;
 PImage menu;
 PImage controles;
@@ -17,10 +32,11 @@ PImage jardin1;
 int escenario = 0;  //el juego empieza en el menu
 int savestate = 0;  //guarda el valor del último e
 int estadobateria = 1;
-int estadocajon = 1;
+int estadocajon = 0;
 int estadocuadro = 1;
 boolean luzlamp = false;
 boolean cuadron = false;
+boolean checksound = false;
 
 //----------------------------- Declaración de objetos
 Boton jugar;
@@ -35,6 +51,7 @@ Item lampara;
 Item cajonbateria;
 Item cuadro;
 Item tablero;
+Textbox bat0;
 Textbox bat1;
 Textbox bat2;
 Textbox lamp1;
@@ -54,6 +71,8 @@ String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pau
 import ddf.minim.*;
 Minim minim;
 AudioPlayer salasound;
+AudioPlayer box;
+AudioSample botons;
 
 void setup() {
 
@@ -80,6 +99,8 @@ void setup() {
  
  minim = new Minim(this);
  salasound = minim.loadFile("shadydave__snowfall-final.mp3");
+ botons = minim.loadSample("kickhat_open-button-2.mp3");
+ box = minim.loadFile("cbj-student__pop-1.mp3");
 
  pj = new Player(100,360);
  jugar = new Boton(200,250,350,100,"JUGAR");
@@ -90,7 +111,8 @@ void setup() {
  puerta1 = new Puerta(1050,360,80,130);
  puerta2 = new Puerta(100,360,80,130);
  cajonbateria = new Item(720,360,80,130);
- bat1 = new Textbox("La cerradura esta rota, adentro hay...\nuna bateria?...Vale, servira de algo...",625,550,380,240);
+ bat0 = new Textbox("Esta cerrado, creo que se abre\nintroduciendo una clave de 3 digitos",625,550,380,240);
+ bat1 = new Textbox("Por lo que decia el tablero la clave es 563...funciona!!\n adentro hay...una bateria?...Vale, servira de algo...",628,550,380,240);
  bat2 = new Textbox("Aqui adentro no hay nada mas que me pueda ser util...",625,580,380,240);
  lampara = new Item(420,360,80,130);
  lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
@@ -105,11 +127,12 @@ void setup() {
  p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);;
 
 }
-
+int u = 0;
 void draw() {
   
   textFont(fuente);
-  println(frameRate);
+  println(u);
+   
   switch(escenario){
   
    case 0:  //escenario intro y menu
@@ -118,7 +141,7 @@ void draw() {
    fill(5,7,15);
    rect(0,0,width,height);
    
-/*   if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
+    if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
      fill(222,191,65);
      text("Pero... Que es este lugar?!!",100,100);
    if(millis() > introduccion + 2500 && millis() < introduccion + 15000){
@@ -131,14 +154,16 @@ void draw() {
      text("Como sea ... sera mejor que busque una forma\nde salir de aqui.",100,450);
      }
    } else if (millis() > introduccion + 15000){  
-*/   image(menu,0,0);
+     if(!salasound.isPlaying())
+     salasound.loop();
+     image(menu,0,0);
      jugar.displayDetect();
      jugar.updateJugar();
      instrucciones.displayDetect();
      instrucciones.updateInstrucciones();
      salir.displayDetect();
      salir.updateSalir(); 
-//   }
+     }
      break;
    
    case 1: //escenario instrucciones de juego
@@ -148,8 +173,6 @@ void draw() {
    break;
    
    case 2: //escenario sala 1
-   if(!salasound.isPlaying())
-   salasound.loop();
    if(luzlamp == false)
    background(salaoff);
    else
@@ -169,13 +192,15 @@ void draw() {
    break;
    
    case 3:
-   background(255,0,0);
-   rect(500,360,80,130);
-   pj.displayYmover();
-
+   u++;
+   if(u>240)
+   exit();
+   else{
+   background(0);
+   text("CONTINUARA",600,340);}
    break;
    
-   case 4:
+   case 4: //escenario jardin1
    background(jardin1);
    pj.displayYmover();
    pj.x = constrain(pj.x,10,1120);
@@ -185,9 +210,9 @@ void draw() {
    
   }
   
-  
-  
+   
    if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1){ //abrir inventario
+   box.play();
    stroke(216,196,116);
    fill(17,16,50);
    rect(774,10,500,700);
@@ -206,7 +231,7 @@ void draw() {
    image(chispa,990,150);
    if(estadocuadro == 3)
    image(chispaused,990,150);
-   }   
+   } else box.rewind();   
 
 }
 

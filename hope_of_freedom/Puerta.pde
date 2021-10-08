@@ -10,7 +10,7 @@ class Puerta extends Objinter { //Para cambiar de escenario si se cumplen las co
    if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
    if(abierta == true){
    pj.x = 150; 
-   escenario = 4;
+   escenario = 3;
    estadocuadro = 3;
    cuadron = true;
    } else p1.display();

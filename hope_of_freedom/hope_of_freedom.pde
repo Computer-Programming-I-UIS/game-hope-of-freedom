@@ -112,7 +112,7 @@ void setup() {
  puerta2 = new Puerta(100,360,80,130);
  cajonbateria = new Item(720,360,80,130);
  bat0 = new Textbox("Esta cerrado, creo que se abre\nintroduciendo una clave de 3 digitos",625,550,380,240);
- bat1 = new Textbox("Por lo que decia el tablero la clave es 563...funciona!!\n adentro hay...una bateria?...Vale, servira de algo...",628,550,380,240);
+ bat1 = new Textbox("Tengo que introduccion la contraseña...",628,550,380,240);
  bat2 = new Textbox("Aqui adentro no hay nada mas que me pueda ser util...",625,580,380,240);
  lampara = new Item(420,360,80,130);
  lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
@@ -127,11 +127,15 @@ void setup() {
  p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);;
 
 }
-int u = 0;
+
+String textcon = "";
+boolean sabepassword = false;
+boolean puedeescribir = false;
+
 void draw() {
   
   textFont(fuente);
-  
+  println(puedeescribir);
    
   switch(escenario){
   
@@ -192,12 +196,7 @@ void draw() {
    break;
    
    case 3:
-   u++;
-   if(u>240)
-   exit();
-   else{
-   background(0);
-   text("CONTINUARA",600,340);}
+   
    break;
    
    case 4: //escenario jardin1
@@ -230,13 +229,48 @@ void draw() {
    image(chispa,990,150);
    if(estadocuadro == 3)
    image(chispaused,990,150);
-   }   
+   }
+   
+   if (sabepassword) {
+    text("Funciona!! ahora la cerradura esta abierta", 625, 360);
+   }
+   
+   
 
 }
 
 void keyPressed(){ 
   if(key == ESC)//presionar ESC dentro del juego abre el menu de pausa en lugar de cerrar el programa
-  key = 0; 
+  key = 0;
+  
+//--------------------------Para la contraseña del cajon-------------------------------------------------------------------
+  if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1){
+  puedeescribir = true;
+  }
+  
+  if(puedeescribir == true){
+  text(textcon,630,100);
+   if (key == BACKSPACE) { //presionar retroceso elimina el ultimo caracter escrito
+      if (textcon.length()>0) {
+        textcon=textcon.substring(0, textcon.length()-1);
+      }
+    } 
+    else if (key == RETURN || key == ENTER) { //presionar Enter evalúa si la entrada del usuario es correcta o incorrecta
+      println ("ENTER");
+      if (textcon.equals("563")) {
+        sabepassword=true;
+        textcon="";
+      }
+      else {
+        sabepassword=false;
+        text("INCORRECTO",200,200);
+      }
+    }
+    else {
+      textcon+=key;
+    } 
+  }
+//-----------------------------------------------------------------------------------------------------------------------------  
   
   //control de sonidos
   if((key == 'e' || key == 'E') && escenario != 0 && escenario !=1)

@@ -27,7 +27,6 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   bat0.display();}
   if(estadocajon == 1){ 
   bat1.display();
-  text("Has conseguido una bateria. (Pulsa E para ver el inventario)",630,100);
   estadobateria = 2;}
   if(estadocajon == 2)
   bat2.display();

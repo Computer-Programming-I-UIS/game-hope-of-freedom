@@ -26,7 +26,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   bat0.display();
   if(estadocajon == 3){
   bat1.display();
-  text("Has conseguido una bateria!",320,100);
+  text("Has conseguido una bateria!\n(Si presionas E se abre el inventario)",420,100);
   }
   } 
   }  

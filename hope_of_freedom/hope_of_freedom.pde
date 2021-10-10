@@ -71,8 +71,11 @@ String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pau
 import ddf.minim.*;
 Minim minim;
 AudioPlayer salasound;
+AudioPlayer jardinsound;
 AudioSample box;
 AudioSample botons;
+AudioSample correcto;
+AudioSample incorrecto;
 
 void setup() {
 
@@ -99,8 +102,11 @@ void setup() {
  
  minim = new Minim(this);
  salasound = minim.loadFile("shadydave__snowfall-final.mp3");
+ jardinsound = minim.loadFile("shadydave__my-love-piano-loop.mp3");
  botons = minim.loadSample("kickhat_open-button-2.mp3");
  box = minim.loadSample("cbj-student__pop-1.mp3");
+ correcto = minim.loadSample("stavsounds__correct3.mp3");
+ incorrecto = minim.loadSample("unadamlar__wrong-choice.mp3");
 
  pj = new Player(100,360);
  jugar = new Boton(200,250,350,100,"JUGAR");
@@ -113,7 +119,7 @@ void setup() {
  puerta2 = new Puerta(100,360,80,130);
  cajonbateria = new Item(720,360,80,130);
  bat0 = new Textbox("Esta cerrado, creo que se abre\nintroduciendo una clave de 3 digitos",625,550,380,240);
- bat1 = new Textbox("Funciona!! ahora la cerradura esta abierta! Esto es...\nuna bateria? Supongo que servira de algo.",628,550,380,240);
+ bat1 = new Textbox("Funciona!! ahora la cerradura esta abierta! Esto es...\nuna bateria? Supongo que servira de algo.",628,560,380,240);
  lampara = new Item(420,360,80,130);
  lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
  lamp2 = new Textbox("La bateria que tengo encaja en la lampara!!\nAhora el lugar esta mejor iluminado!",625,550,380,240);
@@ -199,6 +205,8 @@ void draw() {
    break;
    
    case 4: //escenario jardin1
+   if(!jardinsound.isPlaying())
+   jardinsound.loop();
    background(jardin1);
    pj.displayYmover();
    pj.x = constrain(pj.x,10,1120);
@@ -277,11 +285,13 @@ void keyPressed(){
       println ("ENTER");
       if (textcon.equals("563")) {
         sabepassword=true;
+        correcto.trigger();
         textcon="";
       }
       else {
         sabepassword=false;
-        text("INCORRECTO",200,200);
+        incorrecto.trigger();
+        text("INCORRECTO",170,170);
       }
     }
     else {
@@ -310,4 +320,6 @@ void keyPressed(){
   if((key == 'w' || key == 'W') && pj.x +60 > puerta1.x && pj.x +40 < puerta1.x + puerta1.w)
   box.trigger();
   
+  if((key == 'w' || key == 'W') && pj.x +60 > puerta2.x && pj.x +40 < puerta2.x + puerta2.w)
+  box.trigger();
 }

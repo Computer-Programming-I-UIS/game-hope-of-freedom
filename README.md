@@ -25,5 +25,7 @@ Se agradece a:
 * CBJ_Student, por permitir el uso gratuito de efectos de sonido utilizados en el juego. -> https://freesound.org/people/CBJ_Student/
 * Kickhat, por permitir el uso gratuito de efectos de sonido utilizados en el juego. -> https://freesound.org/people/kickhat/
 * blouhond, por permitir el uso gratuito de efectos de sonido utilizados en este juego. -> https://freesound.org/people/blouhond/
+* Unadamlar, por permitir el uso gratuito de efectos de sonido utilizados en este juego. -> https://freesound.org/people/unadamlar/
+* StavSounds, por permitir el uso gratuito de edectos de sonido utilizados en este juego. -> https://freesound.org/people/StavSounds/
 
 Todo los graficos del juego fueron creados en: https://www.pixilart.com/

@@ -12,6 +12,7 @@ class Puerta extends Objinter { //Para cambiar de escenario si se cumplen las co
    pj.x = 150; 
    escenario = 4;
    estadocuadro = 3;
+   salasound.pause();
    } else p1.display();
    }
   

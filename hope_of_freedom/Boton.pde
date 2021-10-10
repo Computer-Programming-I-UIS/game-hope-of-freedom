@@ -65,7 +65,7 @@ class Boton {
      escenario = 0; //volver al menu principal desde el juego
      botons.trigger();
      }
-  }  
+  }
   
 }    
    

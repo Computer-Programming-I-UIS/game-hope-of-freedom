@@ -7,14 +7,13 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   
   void interactuarC(){  //interacciones con el cuadro de la galleta
   if((key == 'w' || key == 'W')&& pj.x +60 > x && pj.x +40 < x + w){ 
-  if(cuadron == true)
-  cuad3.display();
-  else if(luzlamp == false){
+  if(luzlamp == false){
   cuad1.display();}
   else if (luzlamp == true){
   cuad2.display();
-  text("Has conseguido una chispa de chocolate",420,100);
+  text("Has conseguido una chispa de chocolate!",420,100);
   estadocuadro = 2;
+  estadocajon = 2;
   puerta1.abierta = true;}
   
   }
@@ -23,13 +22,12 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   
   void interactuarB(){ //interacciones con el cajon donde esta la bateria
   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
-  if(estadocajon == 0){
-  bat0.display();}
-  if(estadocajon == 1){ 
+  if(estadocajon == 0)
+  bat0.display();
+  if(estadocajon == 3){
   bat1.display();
-  estadobateria = 2;}
-  if(estadocajon == 2)
-  bat2.display();
+  text("Has conseguido una bateria!",320,100);
+  }
   } 
   }  
 
@@ -37,11 +35,9 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
   if(estadobateria == 1){
    lamp1.display();
-
   }
   if(estadobateria == 2){
    lamp2.display();
-   estadocajon = 2;
    luzlamp = true;
   }
   if(estadocajon == 2){
@@ -50,7 +46,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
 } 
 }
 
-  void interactuarT(){
+  void interactuarT(){ //interaccion con el tablero
    if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){  
    textSize(30);  
    tabler1.display();

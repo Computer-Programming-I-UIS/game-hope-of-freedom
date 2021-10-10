@@ -35,7 +35,6 @@ int estadobateria = 1;
 int estadocajon = 0;
 int estadocuadro = 1;
 boolean luzlamp = false;
-boolean cuadron = false;
 boolean checksound = false;
 
 //----------------------------- Declaración de objetos
@@ -44,6 +43,7 @@ Boton instrucciones;
 Boton volver;
 Boton salir;
 Boton returnmenu;
+Boton password;
 Player pj;
 Puerta puerta1;
 Puerta puerta2;
@@ -59,7 +59,7 @@ Textbox lamp2;
 Textbox lamp3;
 Textbox cuad1;
 Textbox cuad2;
-Textbox cuad3;
+Textbox doorS;
 Textbox tabler1;
 Textbox p1;
 
@@ -108,12 +108,12 @@ void setup() {
  volver = new Boton(492,height-150,300,100,"VOLVER");
  salir = new Boton(200,550,350,100,"SALIR");
  returnmenu = new Boton(823,560,400,100,"VOLVER AL MENU");
+ password = new Boton(525,560,180,70,textcon);
  puerta1 = new Puerta(1050,360,80,130);
  puerta2 = new Puerta(100,360,80,130);
  cajonbateria = new Item(720,360,80,130);
  bat0 = new Textbox("Esta cerrado, creo que se abre\nintroduciendo una clave de 3 digitos",625,550,380,240);
- bat1 = new Textbox("Tengo que introduccion la contraseña...",628,550,380,240);
- bat2 = new Textbox("Aqui adentro no hay nada mas que me pueda ser util...",625,580,380,240);
+ bat1 = new Textbox("Funciona!! ahora la cerradura esta abierta! Esto es...\nuna bateria? Supongo que servira de algo.",628,550,380,240);
  lampara = new Item(420,360,80,130);
  lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
  lamp2 = new Textbox("La bateria que tengo encaja en la lampara!!\nAhora el lugar esta mejor iluminado!",625,550,380,240);
@@ -123,7 +123,7 @@ void setup() {
  cuadro = new Item(220,360,80,130);
  cuad1 = new Textbox("Es una pintura de una galleta con chispas de chocolate,\nse parece mucho a la que tengo en la camisa...",635,560,380,240);
  cuad2 = new Textbox("Hay una parte del cuadro que no esta pintada...\nEsto es...Una chispa de chocolate redonda??",625,550,380,240);
- cuad3 = new Textbox("Esta pintura no parece tener nada mas util.",625,580,380,240);
+ doorS = new Textbox("No tengo razones para volver a ese lugar.",625,580,380,240);
  p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);;
 
 }
@@ -135,7 +135,6 @@ boolean puedeescribir = false;
 void draw() {
   
   textFont(fuente);
-  println(puedeescribir);
    
   switch(escenario){
   
@@ -204,12 +203,11 @@ void draw() {
    pj.displayYmover();
    pj.x = constrain(pj.x,10,1120);
    puerta2.Detect();
-   puerta2.viajarS();
+   puerta2.interactuarS();
    break;
    
   }
-  
-   
+ 
    if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1){ //abrir inventario
    stroke(216,196,116);
    fill(17,16,50);
@@ -223,16 +221,32 @@ void draw() {
    savestate = escenario;
    if(estadobateria == 2)
    image(bateria,840,150);
-   if(estadocajon == 2)
+   if(luzlamp == true)
    image(bateriaused,840,150);
    if(estadocuadro == 2)
    image(chispa,990,150);
-   if(estadocuadro == 3)
+   if(escenario == 4)
    image(chispaused,990,150);
    }
    
+   if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1)
+   password.displayDetect();  
+  
+   if(puedeescribir == true){
+   image(textboxi,60,450);
+   text("Tengo que introduccion la clave...\n(presione RETROCESO para borrar el digito escrito,\nPresione ENTER para abrir la cerradura)",650,70);
+   password.displayDetect();  
+   text(textcon,613,610);
+   fill(255,0,0);
+   textSize(20);
+   text("uno dos tres",613,540);
+   fill(222,191,65);
+   }
+   
    if (sabepassword) {
-    text("Funciona!! ahora la cerradura esta abierta", 625, 360);
+    estadobateria = 2;
+    puedeescribir = false;
+    estadocajon = 3;
    }
    
    
@@ -249,7 +263,6 @@ void keyPressed(){
   }
   
   if(puedeescribir == true){
-  text(textcon,630,100);
    if (key == BACKSPACE) { //presionar retroceso elimina el ultimo caracter escrito
       if (textcon.length()>0) {
         textcon=textcon.substring(0, textcon.length()-1);
@@ -268,8 +281,9 @@ void keyPressed(){
     }
     else {
       textcon+=key;
-    } 
+    }
   }
+  
 //-----------------------------------------------------------------------------------------------------------------------------  
   
   //control de sonidos

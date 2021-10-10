@@ -135,7 +135,7 @@ boolean puedeescribir = false;
 void draw() {
   
   textFont(fuente);
-   
+  println(puedeescribir); 
   switch(escenario){
   
    case 0:  //escenario intro y menu
@@ -234,13 +234,18 @@ void draw() {
   
    if(puedeescribir == true){
    image(textboxi,60,450);
-   text("Tengo que introduccion la clave...\n(presione RETROCESO para borrar el digito escrito,\nPresione ENTER para abrir la cerradura)",650,70);
+   text("(presione RETROCESO para borrar el digito escrito,\nPresione ENTER para intentar abrir la cerradura\nPresione B para dejar de escribir.)",650,70);
    password.displayDetect();  
    text(textcon,613,610);
    fill(255,0,0);
    textSize(20);
    text("uno dos tres",613,540);
    fill(222,191,65);
+   textSize(30);
+   text("Tengo que escribir\nuna clave...",320,560);
+   
+   if(key == 'b' || key == 'B')
+   puedeescribir = false;
    }
    
    if (sabepassword) {

@@ -29,6 +29,8 @@ class Boton {
      fill(175,151,53);
      textAlign(CENTER);
      text(text,x+(w/2),y+(h/1.6));
+     fill(222,191,65);
+     strokeWeight(10);
      }
   }
   

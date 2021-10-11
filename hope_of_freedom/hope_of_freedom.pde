@@ -207,6 +207,8 @@ void draw() {
    background(17,16,50);
    volver.displayDetect();
    volver.updateVolver();
+   textAlign(LEFT);
+   text("Agradezo a:\n\nCrafton Gaming, por aportar su fuente de texto Minecraft\npara uso gratuito.\n\nShadyDave, por permitir el uso gratuito de su musica que fue\nutilizada en este juego.\n\nCBJ_Student, blouhound, unadamlar, StavSounds, y a Kickhat\npor permitir el uso gratuito de efectos de sonido\nutilizados en el juego.",50,70);
    break;
    
    case 4: //escenario jardin1

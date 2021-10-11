@@ -41,6 +41,7 @@ boolean checksound = false;
 Boton jugar;
 Boton instrucciones;
 Boton volver;
+Boton creditos;
 Boton salir;
 Boton returnmenu;
 Boton password;
@@ -109,10 +110,11 @@ void setup() {
  incorrecto = minim.loadSample("unadamlar__wrong-choice.mp3");
 
  pj = new Player(100,360);
- jugar = new Boton(200,250,350,100,"JUGAR");
- instrucciones = new Boton(200,400,350,100,"COMO JUGAR?");
- volver = new Boton(492,height-150,300,100,"VOLVER");
- salir = new Boton(200,550,350,100,"SALIR");
+ jugar = new Boton(250,250,350,80,"JUGAR");
+ instrucciones = new Boton(250,350,350,80,"COMO JUGAR?");
+ volver = new Boton(750,height-150,300,100,"VOLVER");
+ creditos = new Boton(250,450,350,80,"CREDITOS");
+ salir = new Boton(250,550,350,80,"SALIR");
  returnmenu = new Boton(823,560,400,100,"VOLVER AL MENU");
  password = new Boton(525,560,180,70,textcon);
  puerta1 = new Puerta(1050,360,80,130);
@@ -141,7 +143,6 @@ boolean puedeescribir = false;
 void draw() {
   
   textFont(fuente);
-  println(puedeescribir); 
   switch(escenario){
   
    case 0:  //escenario intro y menu
@@ -170,6 +171,8 @@ void draw() {
      jugar.updateJugar();
      instrucciones.displayDetect();
      instrucciones.updateInstrucciones();
+     creditos.displayDetect();
+     creditos.updateCreditos();
      salir.displayDetect();
      salir.updateSalir(); 
 //     }
@@ -200,8 +203,10 @@ void draw() {
    tablero.interactuarT();
    break;
    
-   case 3:
-   
+   case 3: //escenario creditos
+   background(17,16,50);
+   volver.displayDetect();
+   volver.updateVolver();
    break;
    
    case 4: //escenario jardin1
@@ -216,7 +221,7 @@ void draw() {
    
   }
  
-   if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1){ //abrir inventario
+   if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1 && escenario != 3){ //abrir inventario
    stroke(216,196,116);
    fill(17,16,50);
    rect(774,10,500,700);
@@ -302,7 +307,7 @@ void keyPressed(){
 //-----------------------------------------------------------------------------------------------------------------------------  
   
   //control de sonidos
-  if((key == 'e' || key == 'E') && escenario != 0 && escenario !=1)
+  if((key == 'e' || key == 'E') && escenario != 0 && escenario !=1 && escenario !=3)
   box.trigger();
   
   if((key == 'w' || key == 'W')&& pj.x +60 > cuadro.x && pj.x +40 < cuadro.x + cuadro.w)

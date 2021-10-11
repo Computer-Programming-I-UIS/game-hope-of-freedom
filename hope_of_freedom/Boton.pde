@@ -18,7 +18,7 @@ class Boton {
      rect(x,y,w,h);
      fill(222,191,65);
      textAlign(CENTER);
-     text(text,x+(w/2),y+(h/1.6));
+     text(text,x+(w/2),y+(h/1.5));
      
    if(mouseX>this.x && mouseX<this.x+w && mouseY>this.y && mouseY<this.y+h){
      strokeWeight(14);
@@ -51,6 +51,13 @@ class Boton {
   void updateVolver(){ 
   if(mousePressed && mouseX>volver.x && mouseX<volver.x+w && mouseY>volver.y && mouseY<volver.y+h){
      escenario = 0; //de la pantalla de controles regresarse al menu principal
+     botons.trigger();
+     }
+  }
+  
+  void updateCreditos(){
+  if(mousePressed && mouseX>creditos.x && mouseX<creditos.x+w && mouseY>creditos.y && mouseY<creditos.y+h){
+     escenario = 3;
      botons.trigger();
      }
   }

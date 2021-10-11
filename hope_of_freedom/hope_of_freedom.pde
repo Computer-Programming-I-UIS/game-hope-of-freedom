@@ -61,11 +61,13 @@ Textbox lamp3;
 Textbox cuad1;
 Textbox cuad2;
 Textbox doorS;
+Textbox outside;
 Textbox tabler1;
 Textbox p1;
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
+float resetevento = 0;
 String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pausa
 
 //Minim
@@ -77,6 +79,7 @@ AudioSample box;
 AudioSample botons;
 AudioSample correcto;
 AudioSample incorrecto;
+
 
 void setup() {
 
@@ -132,6 +135,7 @@ void setup() {
  cuad1 = new Textbox("Es una pintura de una galleta con chispas de chocolate,\nse parece mucho a la que tengo en la camisa...",635,560,380,240);
  cuad2 = new Textbox("Hay una parte del cuadro que no esta pintada...\nEsto es...Una chispa de chocolate redonda??",625,550,380,240);
  doorS = new Textbox("No tengo razones para volver a ese lugar.",625,580,380,240);
+ outside = new Textbox("Logre salir de ahi, pero no se donde estoy, ademas,\neste lugar esta rodeado por un muro muy alto, tengo\nque buscar una manera de escalarlo y asi escapar",625,530,380,240);
  p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);;
 
 }
@@ -141,8 +145,9 @@ boolean sabepassword = false;
 boolean puedeescribir = false;
 
 void draw() {
-  
   textFont(fuente);
+  println(resetevento);
+  println(millis());
   switch(escenario){
   
    case 0:  //escenario intro y menu
@@ -163,7 +168,7 @@ void draw() {
    if(millis() > introduccion + 7500 && millis() < introduccion + 15000){
      text("Como sea ... sera mejor que busque una forma\nde salir de aqui.",100,450);
      }
-   } else if (millis() > introduccion + 15000){  
+     } else if (millis() > introduccion + 15000){  
 */     if(!salasound.isPlaying())
      salasound.loop();
      image(menu,0,0);
@@ -213,15 +218,20 @@ void draw() {
    
    case 4: //escenario jardin1
    if(!jardinsound.isPlaying())
-   jardinsound.loop();
+   jardinsound.loop();  
    background(jardin1);
    pj.displayYmover();
+   
+   if(millis()>resetevento+1000 && millis()<resetevento+9000)
+   outside.display();
+   
    pj.x = constrain(pj.x,10,1120);
    puerta2.Detect();
    puerta2.interactuarS();
    break;
    
   }
+  
  
    if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1 && escenario != 3){ //abrir inventario
    stroke(216,196,116);
@@ -324,8 +334,9 @@ void keyPressed(){
   if((key == 'w' || key == 'W') && pj.x +60 > tablero.x && pj.x +40 < tablero.x + tablero.w)
   box.trigger();
   
-  if((key == 'w' || key == 'W') && pj.x +60 > puerta1.x && pj.x +40 < puerta1.x + puerta1.w)
+  if((key == 'w' || key == 'W') && pj.x +60 > puerta1.x && pj.x +40 < puerta1.x + puerta1.w){
   box.trigger();
+  resetevento=millis();}
   
   if((key == 'w' || key == 'W') && pj.x +60 > puerta2.x && pj.x +40 < puerta2.x + puerta2.w)
   box.trigger();

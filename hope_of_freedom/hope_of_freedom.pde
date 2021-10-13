@@ -52,6 +52,9 @@ Item lampara;
 Item cajonbateria;
 Item cuadro;
 Item tablero;
+Item cartel;
+Item columpio;
+Item flor;
 Textbox bat0;
 Textbox bat1;
 Textbox bat2;
@@ -64,6 +67,9 @@ Textbox doorS;
 Textbox outside;
 Textbox tabler1;
 Textbox p1;
+Textbox cart;
+Textbox colump1;
+Textbox flor1;
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
@@ -135,8 +141,15 @@ void setup() {
  cuad1 = new Textbox("Es una pintura de una galleta con chispas de chocolate,\nse parece mucho a la que tengo en la camisa...",635,560,380,240);
  cuad2 = new Textbox("Hay una parte del cuadro que no esta pintada...\nEsto es...Una chispa de chocolate redonda??",625,550,380,240);
  doorS = new Textbox("No tengo razones para volver a ese lugar.",625,580,380,240);
- outside = new Textbox("Logre salir de ahi, pero no se donde estoy, ademas,\neste lugar esta rodeado por un muro muy alto, tengo\nque buscar una manera de escalarlo y asi escapar",625,530,380,240);
- p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);;
+ outside = new Textbox("Bien!! Logre salir de ahi, pero aun no se donde estoy\n...voy a ver que encuentro por el lugar...",625,550,380,240);
+ p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);
+ cartel = new Item(250,360,80,130);
+ cart = new Textbox("El cartel dice: Que rapido crecen! te descuidas un\nmomento y ya se van de casa, buscando su propio camino...\npero, estas a la altura? No pareces ser lo suficientemente grande\npara sobrepasar el muro de la vida.",628,520,380,240);
+ columpio = new Item(570,360,50,130);
+ colump1 = new Textbox("Es un columpio, me gustan pero este no es\nun buen momento para jugar.",625,550,380,240);
+ flor = new Item(890,360,50,130);
+ flor1 = new Textbox("Una flor roja, contrasta mucho con el resto del lugar...",625,570,380,240);
+ 
 
 }
 
@@ -222,18 +235,24 @@ void draw() {
    background(jardin1);
    pj.displayYmover();
    
-   if(millis()>resetevento+1000 && millis()<resetevento+9000)
+   if(millis()>resetevento+1000 && millis()<resetevento+7000)
    outside.display();
    
    pj.x = constrain(pj.x,10,1120);
    puerta2.Detect();
    puerta2.interactuarS();
+   cartel.Detect();
+   cartel.interactuarCartel();
+   columpio.Detect();
+   columpio.interactuarColump();
+   flor.Detect();
+   flor.interactuarFlor();
    break;
    
   }
   
  
-   if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1 && escenario != 3){ //abrir inventario
+   if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1 && escenario != 3 && puedeescribir == false){ //abrir inventario
    stroke(216,196,116);
    fill(17,16,50);
    rect(774,10,500,700);
@@ -254,7 +273,7 @@ void draw() {
    image(chispaused,990,150);
    }
    
-   if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1)
+   if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1)  //Puzzle de la constraseña
    password.displayDetect();  
   
    if(puedeescribir == true){
@@ -295,49 +314,62 @@ void keyPressed(){
   if(puedeescribir == true){
    if (key == BACKSPACE) { //presionar retroceso elimina el ultimo caracter escrito
       if (textcon.length()>0) {
-        textcon=textcon.substring(0, textcon.length()-1);
+        textcon = textcon.substring(0, textcon.length()-1);
       }
     } 
     else if (key == RETURN || key == ENTER) { //presionar Enter evalúa si la entrada del usuario es correcta o incorrecta
       println ("ENTER");
       if (textcon.equals("563")) {
-        sabepassword=true;
+        sabepassword = true;
         correcto.trigger();
         textcon="";
       }
       else {
-        sabepassword=false;
+        sabepassword = false;
         incorrecto.trigger();
         text("INCORRECTO",170,170);
       }
     }
     else {
-      textcon+=key;
+      textcon += key;
     }
+    if(textcon.length()>3)
+    textcon = textcon.substring(0,3);
   }
   
 //-----------------------------------------------------------------------------------------------------------------------------  
   
-  //control de sonidos
-  if((key == 'e' || key == 'E') && escenario != 0 && escenario !=1 && escenario !=3)
+  //control de sonidos y algunos eventos
+  if((key == 'e' || key == 'E') && escenario != 0 && escenario !=1 && escenario !=3 && puedeescribir == false)
   box.trigger();
   
-  if((key == 'w' || key == 'W')&& pj.x +60 > cuadro.x && pj.x +40 < cuadro.x + cuadro.w)
+  if(key == 'w' || key == 'W'){
+  if(pj.x +60 > cuadro.x && pj.x +40 < cuadro.x + cuadro.w && escenario == 2)
   box.trigger();
   
-  if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w)
+  if(pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && escenario == 2)
   box.trigger();
   
-  if((key == 'w' || key == 'W') && pj.x +60 > lampara.x && pj.x +40 < lampara.x + lampara.w)
+  if(pj.x +60 > lampara.x && pj.x +40 < lampara.x + lampara.w && escenario == 2)
   box.trigger();
   
-  if((key == 'w' || key == 'W') && pj.x +60 > tablero.x && pj.x +40 < tablero.x + tablero.w)
+  if(pj.x +60 > tablero.x && pj.x +40 < tablero.x + tablero.w && escenario == 2)
   box.trigger();
   
-  if((key == 'w' || key == 'W') && pj.x +60 > puerta1.x && pj.x +40 < puerta1.x + puerta1.w){
+  if(pj.x +60 > puerta1.x && pj.x +40 < puerta1.x + puerta1.w && escenario == 2){
   box.trigger();
   resetevento=millis();}
   
-  if((key == 'w' || key == 'W') && pj.x +60 > puerta2.x && pj.x +40 < puerta2.x + puerta2.w)
+  if(pj.x +60 > puerta2.x && pj.x +40 < puerta2.x + puerta2.w && escenario == 4)
   box.trigger();
+  
+  if(pj.x +60 > cartel.x && pj.x +40 < cartel.x + cartel.w && escenario == 4)
+  box.trigger();
+  
+  if(pj.x +60 > columpio.x && pj.x +40 < columpio.x + columpio.w && escenario == 4)
+  box.trigger();
+  
+  if(pj.x +60 > flor.x && pj.x +40 < flor.x + flor.w)
+  box.trigger();  
+  }
 }

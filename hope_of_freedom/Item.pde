@@ -53,7 +53,26 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    estadocajon = 1;
    }
 
-   } 
+   }
+   
+   void interactuarCartel(){ //interaccion con el cartel del jardin
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   textSize(33);  
+   cart.display(); 
+   }
+   }
+   
+   void interactuarColump(){ //interaccion con columpio del jardin
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   colump1.display();
+   }
+   }
+   
+   void interactuarFlor(){ //interaccion con flor del jardin
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){ 
+   flor1.display(); 
+   }
+   }
    
    
 }   

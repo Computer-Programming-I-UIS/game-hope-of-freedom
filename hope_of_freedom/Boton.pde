@@ -59,7 +59,7 @@ class Boton {
   
   void updateCreditos(){
   if(mousePressed && mouseX>creditos.x && mouseX<creditos.x+w && mouseY>creditos.y && mouseY<creditos.y+h){
-     escenario = 3;
+     escenario = 3; //seccion de creditos
      botons.trigger();
      }
   }

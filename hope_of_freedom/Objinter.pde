@@ -8,7 +8,7 @@ class Objinter { //superclase de los objetos interactuables que comparten el met
   h = hp;
  }
  
- void Detect(){
+ void Detect(){ //acercarse a un objeto interactuable dibuja un signo de exclamacion en la cabeza del pj
   if(pj.x +60 > this.x && pj.x +40 < this.x + this.w){
   image(signo, pj.x+30, pj.y-70);
   }

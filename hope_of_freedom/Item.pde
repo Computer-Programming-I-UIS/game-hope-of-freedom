@@ -74,5 +74,13 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    }
    }
    
+   void interactuarPala(){
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   pala1.display();
+   getpala = true;
+   text("Has conseguido una pala!",320,100);
+   }
+   }
+   
    
 }   

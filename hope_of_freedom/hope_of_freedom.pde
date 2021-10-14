@@ -26,7 +26,9 @@ PImage chispaused;
 PImage salaoff;
 PImage salaon;
 PImage jardin1;
-
+PImage pala;
+PImage palainv;
+PImage palainvused;
 
 //variables globales
 int escenario = 0;  //el juego empieza en el menu
@@ -35,7 +37,7 @@ int estadobateria = 1;
 int estadocajon = 0;
 int estadocuadro = 1;
 boolean luzlamp = false;
-boolean checksound = false;
+boolean getpala = false;
 
 //----------------------------- Declaración de objetos
 Boton jugar;
@@ -55,6 +57,7 @@ Item tablero;
 Item cartel;
 Item columpio;
 Item flor;
+Item palaobjeto;
 Textbox bat0;
 Textbox bat1;
 Textbox bat2;
@@ -70,6 +73,7 @@ Textbox p1;
 Textbox cart;
 Textbox colump1;
 Textbox flor1;
+Textbox pala1;
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
@@ -106,6 +110,9 @@ void setup() {
  salaoff = loadImage("sala1off.png");
  salaon = loadImage("sala1on.png");
  jardin1 = loadImage("jardin1.png");
+ pala = loadImage("pala.png");
+ palainv = loadImage("palaobj.png");
+ palainvused = loadImage("palaobjused.png");
  
  //-------------------------------- crear objetos 
  introduccion = millis();
@@ -144,11 +151,13 @@ void setup() {
  outside = new Textbox("Bien!! Logre salir de ahi, pero aun no se donde estoy\n...voy a ver que encuentro por el lugar...",625,550,380,240);
  p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);
  cartel = new Item(250,360,80,130);
- cart = new Textbox("El cartel dice: Que rapido crecen! te descuidas un\nmomento y ya se van de casa, buscando su propio camino...\npero, estas a la altura? No pareces ser lo suficientemente grande\npara sobrepasar el muro de la vida.",628,520,380,240);
+ cart = new Textbox("El cartel dice: Que rapido crecen! te descuidas un\nmomento y ya se van de casa, buscando su propio camino...\npero, estas a la altura? No pareces ser lo suficientemente grande\npara sobrepasar el muro de la vida.",630,520,380,240);
  columpio = new Item(570,360,50,130);
  colump1 = new Textbox("Es un columpio, me gustan pero este no es\nun buen momento para jugar.",625,550,380,240);
  flor = new Item(890,360,50,130);
  flor1 = new Textbox("Una flor roja, contrasta mucho con el resto del lugar...",625,570,380,240);
+ palaobjeto = new Item(450,360,50,130);
+ pala1 = new Textbox("Una pala! La jardineria no es lo mio pero seguro que\nencuentro un buen uso para esta cosa...",625,570,380,240);
  
 
 }
@@ -159,8 +168,7 @@ boolean puedeescribir = false;
 
 void draw() {
   textFont(fuente);
-  println(resetevento);
-  println(millis());
+  println(pj.x);
   switch(escenario){
   
    case 0:  //escenario intro y menu
@@ -233,7 +241,15 @@ void draw() {
    if(!jardinsound.isPlaying())
    jardinsound.loop();  
    background(jardin1);
+   
+   if(getpala == false){
+   image(pala,420,360);
+   palaobjeto.Detect();
+   }
+   
    pj.displayYmover();
+   
+   palaobjeto.interactuarPala();
    
    if(millis()>resetevento+1000 && millis()<resetevento+7000)
    outside.display();
@@ -271,6 +287,8 @@ void draw() {
    image(chispa,990,150);
    if(escenario == 4)
    image(chispaused,990,150);
+   if(getpala == true)
+   image(palainv,1130,150);
    }
    
    if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1)  //Puzzle de la constraseña
@@ -369,7 +387,10 @@ void keyPressed(){
   if(pj.x +60 > columpio.x && pj.x +40 < columpio.x + columpio.w && escenario == 4)
   box.trigger();
   
-  if(pj.x +60 > flor.x && pj.x +40 < flor.x + flor.w)
-  box.trigger();  
+  if(pj.x +60 > flor.x && pj.x +40 < flor.x + flor.w && escenario == 4)
+  box.trigger();
+  
+  if(pj.x +60 > palaobjeto.x && pj.x +40 < palaobjeto.x + palaobjeto.w && escenario == 4 && getpala == false)
+  box.trigger();
   }
 }

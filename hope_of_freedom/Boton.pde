@@ -38,7 +38,7 @@ class Boton {
   
   void updateJugar(){
      if(mousePressed && mouseX>jugar.x && mouseX<jugar.x+w && mouseY>jugar.y && mouseY<jugar.y+h){
-     escenario = 2; //ir al primer escenario jugable
+     escenario = 4; //ir al primer escenario jugable
      botons.trigger();
      }
   }

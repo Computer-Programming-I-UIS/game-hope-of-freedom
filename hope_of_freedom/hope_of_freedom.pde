@@ -29,6 +29,7 @@ PImage jardin1;
 PImage pala;
 PImage palainv;
 PImage palainvused;
+PImage jardin2;
 
 //variables globales
 int escenario = 0;  //el juego empieza en el menu
@@ -38,6 +39,7 @@ int estadocajon = 0;
 int estadocuadro = 1;
 boolean luzlamp = false;
 boolean getpala = false;
+boolean knowstumba = false;
 
 //----------------------------- Declaración de objetos
 Boton jugar;
@@ -57,6 +59,8 @@ Item tablero;
 Item cartel;
 Item columpio;
 Item flor;
+Item pozo;
+Item tumba;
 Item palaobjeto;
 Textbox bat0;
 Textbox bat1;
@@ -73,14 +77,18 @@ Textbox p1;
 Textbox cart;
 Textbox colump1;
 Textbox flor1;
+Textbox pala0;
 Textbox pala1;
+Textbox pozo1;
+Textbox tumba1;
+
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
 float resetevento = 0;
 String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pausa
 
-//Minim
+//Libreria Minim
 import ddf.minim.*;
 Minim minim;
 AudioPlayer salasound;
@@ -113,6 +121,7 @@ void setup() {
  pala = loadImage("pala.png");
  palainv = loadImage("palaobj.png");
  palainvused = loadImage("palaobjused.png");
+ jardin2 = loadImage("jardin2.png");
  
  //-------------------------------- crear objetos 
  introduccion = millis();
@@ -155,9 +164,14 @@ void setup() {
  columpio = new Item(570,360,50,130);
  colump1 = new Textbox("Es un columpio, me gustan pero este no es\nun buen momento para jugar.",625,550,380,240);
  flor = new Item(890,360,50,130);
- flor1 = new Textbox("Una flor roja, contrasta mucho con el resto del lugar...",625,570,380,240);
+ flor1 = new Textbox("Una flor roja, contrasta mucho con el resto del lugar...",625,580,380,240);
  palaobjeto = new Item(450,360,50,130);
- pala1 = new Textbox("Una pala! La jardineria no es lo mio pero seguro que\nencuentro un buen uso para esta cosa...",625,570,380,240);
+ pala0 = new Textbox("Una pala, es interesante pero por ahora no\nveo ninguna razon para recogerla",625,550,380,240);
+ pala1 = new Textbox("Esta pala...La jardineria no es lo mio pero seguro que\nencuentro un buen uso para esta cosa...",625,570,380,240);
+ pozo = new Item(290,360,100,130);
+ pozo1 = new Textbox("El agua del pozo se ve bastante limpia...",625,570,380,240);
+ tumba = new Item(800,360,70,130);
+ tumba1 = new Textbox("Una lapida, tiene algo escrito: Aqui yace mi casco\nfavorito, sigue funcionando pero mama dice que deje\nde usarlo y que no es un casco :(",625,530,380,240);
  
 
 }
@@ -171,7 +185,7 @@ void draw() {
   println(pj.x);
   switch(escenario){
   
-   case 0:  //escenario intro y menu
+   case 0:  //--------------------------------------------------escenario intro y menu
    strokeWeight(20);
    stroke(222,191,65);
    fill(5,7,15);
@@ -204,13 +218,13 @@ void draw() {
 //     }
      break;
    
-   case 1: //escenario instrucciones de juego
+   case 1: //--------------------------------------------------escenario instrucciones de juego
    image(controles,0,0);
    volver.displayDetect();
    volver.updateVolver();
    break;
    
-   case 2: //escenario sala 1
+   case 2: //--------------------------------------------------escenario sala 1
    if(luzlamp == false)
    background(salaoff);
    else
@@ -229,7 +243,7 @@ void draw() {
    tablero.interactuarT();
    break;
    
-   case 3: //escenario creditos
+   case 3: //--------------------------------------------------escenario creditos
    background(17,16,50);
    volver.displayDetect();
    volver.updateVolver();
@@ -237,7 +251,7 @@ void draw() {
    text("Agradezo a:\n\nCrafton Gaming, por aportar su fuente de texto Minecraft\npara uso gratuito.\n\nShadyDave, por permitir el uso gratuito de su musica que fue\nutilizada en este juego.\n\nCBJ_Student, blouhound, unadamlar, StavSounds, y a Kickhat\npor permitir el uso gratuito de efectos de sonido\nutilizados en el juego.",50,70);
    break;
    
-   case 4: //escenario jardin1
+   case 4: //--------------------------------------------------escenario jardin1
    if(!jardinsound.isPlaying())
    jardinsound.loop();  
    background(jardin1);
@@ -254,7 +268,7 @@ void draw() {
    if(millis()>resetevento+1000 && millis()<resetevento+7000)
    outside.display();
    
-   pj.x = constrain(pj.x,10,1120);
+   pj.x = constrain(pj.x,10,1300);
    puerta2.Detect();
    puerta2.interactuarS();
    cartel.Detect();
@@ -263,6 +277,25 @@ void draw() {
    columpio.interactuarColump();
    flor.Detect();
    flor.interactuarFlor();
+   
+   if(pj.x > 1290){
+   escenario = 5;
+   pj.x = 0;}
+   break;
+   
+   case 5: //--------------------------------------------------escenario jardin2
+   image(jardin2,0,0);
+   pj.displayYmover();
+   pj.x = constrain(pj.x,-80,880);
+   
+   pozo.Detect();
+   pozo.interactuarPozo();
+   tumba.Detect();
+   tumba.interactuarTumba();
+   
+   if(pj.x < -60){
+   escenario = 4;  
+   pj.x = 1280;}
    break;
    
   }
@@ -285,7 +318,7 @@ void draw() {
    image(bateriaused,840,150);
    if(estadocuadro == 2)
    image(chispa,990,150);
-   if(escenario == 4)
+   if(escenario == 4 || escenario == 5)
    image(chispaused,990,150);
    if(getpala == true)
    image(palainv,1130,150);
@@ -392,5 +425,14 @@ void keyPressed(){
   
   if(pj.x +60 > palaobjeto.x && pj.x +40 < palaobjeto.x + palaobjeto.w && escenario == 4 && getpala == false)
   box.trigger();
+  
+  if(pj.x +60 > pozo.x && pj.x +40 < pozo.x + pozo.w && escenario == 5)
+  box.trigger();
+  
+  if(pj.x +60 > tumba.x && pj.x +40 < tumba.x + tumba.w && escenario == 5)
+  box.trigger();
+  
   }
+  
+
 }

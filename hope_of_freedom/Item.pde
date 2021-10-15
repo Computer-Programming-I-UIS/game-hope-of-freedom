@@ -92,9 +92,15 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    }
    
    void interactuarTumba(){
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){ 
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   if(getpala == false){  
    tumba1.display();
-   knowstumba = true;
+   knowstumba = true;}
+   else if(getpala == true){
+   changesuelo = true;
+   textSize(35);
+   tumba2.display();
+   text("Has conseguido una cubeta!",320,100);}
    }
    }
    

@@ -30,6 +30,7 @@ PImage pala;
 PImage palainv;
 PImage palainvused;
 PImage jardin2;
+PImage jardin2pala;
 
 //variables globales
 int escenario = 0;  //el juego empieza en el menu
@@ -40,6 +41,7 @@ int estadocuadro = 1;
 boolean luzlamp = false;
 boolean getpala = false;
 boolean knowstumba = false;
+boolean changesuelo = false;
 
 //----------------------------- Declaración de objetos
 Boton jugar;
@@ -81,6 +83,7 @@ Textbox pala0;
 Textbox pala1;
 Textbox pozo1;
 Textbox tumba1;
+Textbox tumba2;
 
 
 
@@ -122,6 +125,7 @@ void setup() {
  palainv = loadImage("palaobj.png");
  palainvused = loadImage("palaobjused.png");
  jardin2 = loadImage("jardin2.png");
+ jardin2pala = loadImage("jardin2f.png");
  
  //-------------------------------- crear objetos 
  introduccion = millis();
@@ -167,11 +171,12 @@ void setup() {
  flor1 = new Textbox("Una flor roja, contrasta mucho con el resto del lugar...",625,580,380,240);
  palaobjeto = new Item(450,360,50,130);
  pala0 = new Textbox("Una pala, es interesante pero por ahora no\nveo ninguna razon para recogerla",625,550,380,240);
- pala1 = new Textbox("Esta pala...La jardineria no es lo mio pero seguro que\nencuentro un buen uso para esta cosa...",625,570,380,240);
+ pala1 = new Textbox("Esta pala... La jardineria no es lo mio pero seguro que\nencuentro un buen uso para esta cosa...",625,570,380,240);
  pozo = new Item(290,360,100,130);
  pozo1 = new Textbox("El agua del pozo se ve bastante limpia...",625,570,380,240);
  tumba = new Item(800,360,70,130);
  tumba1 = new Textbox("Una lapida, tiene algo escrito: Aqui yace mi casco\nfavorito, sigue funcionando pero mama dice que deje\nde usarlo y que no es un casco :(",625,530,380,240);
+ tumba2 = new Textbox("Parece un buen lugar para usar la pala...veamos...\nSu madre tenia razon, esto no es un casco, es una cubeta...\nbueno, no hice esto para nada, me llevo la cubeta.",625,530,380,240);
  
 
 }
@@ -284,7 +289,11 @@ void draw() {
    break;
    
    case 5: //--------------------------------------------------escenario jardin2
+   if(changesuelo == false)
    image(jardin2,0,0);
+   else if(changesuelo ==true)
+   image(jardin2pala,0,0);
+   
    pj.displayYmover();
    pj.x = constrain(pj.x,-80,880);
    

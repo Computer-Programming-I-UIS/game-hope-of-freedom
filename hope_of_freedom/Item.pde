@@ -64,13 +64,21 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    
    void interactuarColump(){ //interaccion con columpio del jardin
    if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   if(changesuelo == false)  
    colump1.display();
+   else if(changesuelo == true){
+   colump2.display();
+   cortacuerda = true;
+   text("Has conseguido una cuerda",320,100);}
    }
    }
    
    void interactuarFlor(){ //interaccion con flor del jardin
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){ 
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   if(getpala == false)  
    flor1.display(); 
+   if(getpala == true)
+   flor2.display();
    }
    }
    
@@ -78,7 +86,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
    if(knowstumba == false)
    pala0.display();
-   else if(knowstumba == true){
+   else if(knowstumba == true && changesuelo == false){
    pala1.display();
    getpala = true;
    text("Has conseguido una pala!",320,100);}
@@ -87,7 +95,11 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    
    void interactuarPozo(){
    if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
-   pozo1.display();  
+   if(changesuelo == false)
+   pozo1.display();
+   else if(changesuelo == true)
+   pozo2.display();
+   
    }
    }
    

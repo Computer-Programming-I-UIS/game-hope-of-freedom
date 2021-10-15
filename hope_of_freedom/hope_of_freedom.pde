@@ -26,11 +26,17 @@ PImage chispaused;
 PImage salaoff;
 PImage salaon;
 PImage jardin1;
+PImage jardin1c;
 PImage pala;
 PImage palainv;
 PImage palainvused;
 PImage jardin2;
 PImage jardin2pala;
+PImage cubeta;
+PImage cubetallena;
+PImage cubetaused;
+PImage cuerda;
+PImage cuerdaused;
 
 //variables globales
 int escenario = 0;  //el juego empieza en el menu
@@ -42,6 +48,7 @@ boolean luzlamp = false;
 boolean getpala = false;
 boolean knowstumba = false;
 boolean changesuelo = false;
+boolean cortacuerda = false;
 
 //----------------------------- Declaración de objetos
 Boton jugar;
@@ -78,10 +85,13 @@ Textbox tabler1;
 Textbox p1;
 Textbox cart;
 Textbox colump1;
+Textbox colump2;
 Textbox flor1;
+Textbox flor2;
 Textbox pala0;
 Textbox pala1;
 Textbox pozo1;
+Textbox pozo2;
 Textbox tumba1;
 Textbox tumba2;
 
@@ -121,11 +131,17 @@ void setup() {
  salaoff = loadImage("sala1off.png");
  salaon = loadImage("sala1on.png");
  jardin1 = loadImage("jardin1.png");
+ jardin1c = loadImage("jardin1c.png");
  pala = loadImage("pala.png");
  palainv = loadImage("palaobj.png");
  palainvused = loadImage("palaobjused.png");
  jardin2 = loadImage("jardin2.png");
  jardin2pala = loadImage("jardin2f.png");
+ cubeta = loadImage("cubetavacia.png");
+ cubetallena = loadImage("cubetallena.png");
+ cubetaused = loadImage("cubetaused.png");
+ cuerda = loadImage("cuerda.png");
+ cuerdaused = loadImage("cuerdaused.png");
  
  //-------------------------------- crear objetos 
  introduccion = millis();
@@ -167,13 +183,16 @@ void setup() {
  cart = new Textbox("El cartel dice: Que rapido crecen! te descuidas un\nmomento y ya se van de casa, buscando su propio camino...\npero, estas a la altura? No pareces ser lo suficientemente grande\npara sobrepasar el muro de la vida.",630,520,380,240);
  columpio = new Item(570,360,50,130);
  colump1 = new Textbox("Es un columpio, me gustan pero este no es\nun buen momento para jugar.",625,550,380,240);
+ colump2 = new Textbox("La cuerda que sostiene el columpio,\ncreo que la tomare ...podria servir para...",625,550,380,240);
  flor = new Item(890,360,50,130);
  flor1 = new Textbox("Una flor roja, contrasta mucho con el resto del lugar...",625,580,380,240);
+ flor2 = new Textbox("No quiero desenterrarla, se ve bien estando ahi...",625,580,380,240);
  palaobjeto = new Item(450,360,50,130);
  pala0 = new Textbox("Una pala, es interesante pero por ahora no\nveo ninguna razon para recogerla",625,550,380,240);
  pala1 = new Textbox("Esta pala... La jardineria no es lo mio pero seguro que\nencuentro un buen uso para esta cosa...",625,570,380,240);
  pozo = new Item(290,360,100,130);
- pozo1 = new Textbox("El agua del pozo se ve bastante limpia...",625,570,380,240);
+ pozo1 = new Textbox("El agua del pozo...casi no se ve\npero espero que este limpia...",625,560,380,240);
+ pozo2 = new Textbox("El agua esta muy en el fondo...no puedo llenar esta\ncubeta de esta manera...",625,560,380,240);
  tumba = new Item(800,360,70,130);
  tumba1 = new Textbox("Una lapida, tiene algo escrito: Aqui yace mi casco\nfavorito, sigue funcionando pero mama dice que deje\nde usarlo y que no es un casco :(",625,530,380,240);
  tumba2 = new Textbox("Parece un buen lugar para usar la pala...veamos...\nSu madre tenia razon, esto no es un casco, es una cubeta...\nbueno, no hice esto para nada, me llevo la cubeta.",625,530,380,240);
@@ -258,8 +277,12 @@ void draw() {
    
    case 4: //--------------------------------------------------escenario jardin1
    if(!jardinsound.isPlaying())
-   jardinsound.loop();  
+   jardinsound.loop();
+   
+   if(cortacuerda == false)
    background(jardin1);
+   else if(cortacuerda == true)
+   background(jardin1c);
    
    if(getpala == false){
    image(pala,420,360);
@@ -331,6 +354,12 @@ void draw() {
    image(chispaused,990,150);
    if(getpala == true)
    image(palainv,1130,150);
+   if(changesuelo == true)
+   image(palainvused,1130,150);
+   if(changesuelo == true)
+   image(cubeta,840,350);
+   if(cortacuerda == true)
+   image(cuerda,990,345);
    }
    
    if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1)  //Puzzle de la constraseña

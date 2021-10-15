@@ -79,6 +79,10 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    flor1.display(); 
    if(getpala == true)
    flor2.display();
+   if(llenado == true){
+   flor3.display();
+   crecimiento = true;
+   text("Presiona R para escalar la planta",350,100);}
    }
    }
    
@@ -97,9 +101,12 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
    if(changesuelo == false)
    pozo1.display();
-   else if(changesuelo == true)
+   if(changesuelo == true)
    pozo2.display();
-   
+   if(cortacuerda == true){
+   pozo3.display();
+   text("Llenaste la cubeta con agua",320,100);
+   llenado = true;}
    }
    }
    

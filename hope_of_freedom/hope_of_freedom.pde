@@ -27,6 +27,7 @@ PImage salaoff;
 PImage salaon;
 PImage jardin1;
 PImage jardin1c;
+PImage jardinf;
 PImage pala;
 PImage palainv;
 PImage palainvused;
@@ -49,6 +50,8 @@ boolean getpala = false;
 boolean knowstumba = false;
 boolean changesuelo = false;
 boolean cortacuerda = false;
+boolean llenado = false;
+boolean crecimiento = false;
 
 //----------------------------- Declaración de objetos
 Boton jugar;
@@ -88,10 +91,12 @@ Textbox colump1;
 Textbox colump2;
 Textbox flor1;
 Textbox flor2;
+Textbox flor3;
 Textbox pala0;
 Textbox pala1;
 Textbox pozo1;
 Textbox pozo2;
+Textbox pozo3;
 Textbox tumba1;
 Textbox tumba2;
 
@@ -99,6 +104,7 @@ Textbox tumba2;
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
 float resetevento = 0;
+float eventofinal = 0;
 String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pausa
 
 //Libreria Minim
@@ -132,6 +138,7 @@ void setup() {
  salaon = loadImage("sala1on.png");
  jardin1 = loadImage("jardin1.png");
  jardin1c = loadImage("jardin1c.png");
+ jardinf = loadImage("jardinf.png");
  pala = loadImage("pala.png");
  palainv = loadImage("palaobj.png");
  palainvused = loadImage("palaobjused.png");
@@ -187,12 +194,14 @@ void setup() {
  flor = new Item(890,360,50,130);
  flor1 = new Textbox("Una flor roja, contrasta mucho con el resto del lugar...",625,580,380,240);
  flor2 = new Textbox("No quiero desenterrarla, se ve bien estando ahi...",625,580,380,240);
+ flor3 = new Textbox("Seria una lastima que esta flor se seque,\nusare la cubeta para regarla...WOW PERO QUE?!!\nLa flor crecio de repente a la altura del muro...",625,530,380,240);
  palaobjeto = new Item(450,360,50,130);
  pala0 = new Textbox("Una pala, es interesante pero por ahora no\nveo ninguna razon para recogerla",625,550,380,240);
  pala1 = new Textbox("Esta pala... La jardineria no es lo mio pero seguro que\nencuentro un buen uso para esta cosa...",625,570,380,240);
  pozo = new Item(290,360,100,130);
  pozo1 = new Textbox("El agua del pozo...casi no se ve\npero espero que este limpia...",625,560,380,240);
  pozo2 = new Textbox("El agua esta muy en el fondo...no puedo llenar esta\ncubeta de esta manera...",625,560,380,240);
+ pozo3 = new Textbox("Si, puedo usar la cuerda oara bajar la cubeta\n y poder llenarla de agua...funciono!!",625,560,380,240);
  tumba = new Item(800,360,70,130);
  tumba1 = new Textbox("Una lapida, tiene algo escrito: Aqui yace mi casco\nfavorito, sigue funcionando pero mama dice que deje\nde usarlo y que no es un casco :(",625,530,380,240);
  tumba2 = new Textbox("Parece un buen lugar para usar la pala...veamos...\nSu madre tenia razon, esto no es un casco, es una cubeta...\nbueno, no hice esto para nada, me llevo la cubeta.",625,530,380,240);
@@ -206,7 +215,7 @@ boolean puedeescribir = false;
 
 void draw() {
   textFont(fuente);
-  println(pj.x);
+  println(cortacuerda);
   switch(escenario){
   
    case 0:  //--------------------------------------------------escenario intro y menu
@@ -283,6 +292,8 @@ void draw() {
    background(jardin1);
    else if(cortacuerda == true)
    background(jardin1c);
+   if(crecimiento == true)
+   background(jardinf);
    
    if(getpala == false){
    image(pala,420,360);
@@ -309,6 +320,9 @@ void draw() {
    if(pj.x > 1290){
    escenario = 5;
    pj.x = 0;}
+   
+   if((key == 'r' || key == 'R') && crecimiento == true) //se escala la planta y se reproduce el final del juego.
+   escenario = 6;
    break;
    
    case 5: //--------------------------------------------------escenario jardin2
@@ -330,6 +344,9 @@ void draw() {
    pj.x = 1280;}
    break;
    
+   case 6:
+   
+   break;
   }
   
  
@@ -360,6 +377,10 @@ void draw() {
    image(cubeta,840,350);
    if(cortacuerda == true)
    image(cuerda,990,345);
+   if(llenado == true)
+   image(cuerdaused,990,345);
+   if(llenado == true)
+   image(cubetallena,840,350);
    }
    
    if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1)  //Puzzle de la constraseña
@@ -469,6 +490,9 @@ void keyPressed(){
   
   if(pj.x +60 > tumba.x && pj.x +40 < tumba.x + tumba.w && escenario == 5)
   box.trigger();
+  
+  if((key == 'r' || key == 'R') && crecimiento == true && escenario == 4) //controla tiempo de evento final del juego
+  eventofinal = millis();
   
   }
   

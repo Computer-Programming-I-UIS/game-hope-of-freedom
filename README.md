@@ -27,5 +27,6 @@ Se agradece a:
 * blouhond, por permitir el uso gratuito de efectos de sonido utilizados en este juego. -> https://freesound.org/people/blouhond/
 * Unadamlar, por permitir el uso gratuito de efectos de sonido utilizados en este juego. -> https://freesound.org/people/unadamlar/
 * StavSounds, por permitir el uso gratuito de edectos de sonido utilizados en este juego. -> https://freesound.org/people/StavSounds/
+* A Benjamin Tissot (también conocido como Bensound), por permitir el uso gratuito de música que fue utilizada en este juego. -> https://www.bensound.com/
 
 Todo los graficos del juego fueron creados en: https://www.pixilart.com/

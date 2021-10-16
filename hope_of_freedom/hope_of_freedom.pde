@@ -38,6 +38,8 @@ PImage cubetallena;
 PImage cubetaused;
 PImage cuerda;
 PImage cuerdaused;
+PImage pjtriste;
+PImage pjfeliz;
 
 //variables globales
 int escenario = 0;  //el juego empieza en el menu
@@ -112,6 +114,7 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer salasound;
 AudioPlayer jardinsound;
+AudioPlayer finaljuego;
 AudioSample box;
 AudioSample botons;
 AudioSample correcto;
@@ -149,6 +152,8 @@ void setup() {
  cubetaused = loadImage("cubetaused.png");
  cuerda = loadImage("cuerda.png");
  cuerdaused = loadImage("cuerdaused.png");
+ pjtriste = loadImage("pjtriste.png");
+ pjfeliz = loadImage("pjfeliz.png");
  
  //-------------------------------- crear objetos 
  introduccion = millis();
@@ -156,6 +161,7 @@ void setup() {
  minim = new Minim(this);
  salasound = minim.loadFile("shadydave__snowfall-final.mp3");
  jardinsound = minim.loadFile("shadydave__my-love-piano-loop.mp3");
+ finaljuego = minim.loadFile("bensound-tomorrow.mp3");
  botons = minim.loadSample("kickhat_open-button-2.mp3");
  box = minim.loadSample("cbj-student__pop-1.mp3");
  correcto = minim.loadSample("stavsounds__correct3.mp3");
@@ -181,13 +187,13 @@ void setup() {
  tablero = new Item(890,360,80,130);
  tabler1 = new Textbox("El tablero dice: Uno, Dos y Tres son  hermanos muy cercanos,\nUno tiene media decada\nDos ha vivido el doble que el hermano de menor edad\nTres le hace honor a su nombre...que edad tienen los hermanos?",625,515,380,240);
  cuadro = new Item(220,360,80,130);
- cuad1 = new Textbox("Es una pintura de una galleta con chispas de chocolate,\nse parece mucho a la que tengo en la camisa...",635,560,380,240);
+ cuad1 = new Textbox("Es una pintura de una galleta con chispas\nde chocolate, se parece mucho a\nla que tengo en la camisa...",635,530,380,240);
  cuad2 = new Textbox("Hay una parte del cuadro que no esta pintada...\nEsto es...Una chispa de chocolate redonda??",625,550,380,240);
  doorS = new Textbox("No tengo razones para volver a ese lugar.",625,580,380,240);
  outside = new Textbox("Bien!! Logre salir de ahi, pero aun no se donde estoy\n...voy a ver que encuentro por el lugar...",625,550,380,240);
  p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);
  cartel = new Item(250,360,80,130);
- cart = new Textbox("El cartel dice: Que rapido crecen! te descuidas un\nmomento y ya se van de casa, buscando su propio camino...\npero, estas a la altura? No pareces ser lo suficientemente grande\npara sobrepasar el muro de la vida.",630,520,380,240);
+ cart = new Textbox("El cartel dice: Que rapido crecen! te descuidas un\nmomento y ya se van de casa, buscando su propio camino...\npero, estas a la altura? No pareces ser lo suficientemente\ngrande para sobrepasar el muro de la vida.",630,520,380,240);
  columpio = new Item(570,360,50,130);
  colump1 = new Textbox("Es un columpio, me gustan pero este no es\nun buen momento para jugar.",625,550,380,240);
  colump2 = new Textbox("La cuerda que sostiene el columpio,\ncreo que la tomare ...podria servir para...",625,550,380,240);
@@ -201,7 +207,7 @@ void setup() {
  pozo = new Item(290,360,100,130);
  pozo1 = new Textbox("El agua del pozo...casi no se ve\npero espero que este limpia...",625,560,380,240);
  pozo2 = new Textbox("El agua esta muy en el fondo...no puedo llenar esta\ncubeta de esta manera...",625,560,380,240);
- pozo3 = new Textbox("Si, puedo usar la cuerda oara bajar la cubeta\n y poder llenarla de agua...funciono!!",625,560,380,240);
+ pozo3 = new Textbox("Si, puedo usar la cuerda para bajar la cubeta\n y poder llenarla de agua...funciono!!",625,560,380,240);
  tumba = new Item(800,360,70,130);
  tumba1 = new Textbox("Una lapida, tiene algo escrito: Aqui yace mi casco\nfavorito, sigue funcionando pero mama dice que deje\nde usarlo y que no es un casco :(",625,530,380,240);
  tumba2 = new Textbox("Parece un buen lugar para usar la pala...veamos...\nSu madre tenia razon, esto no es un casco, es una cubeta...\nbueno, no hice esto para nada, me llevo la cubeta.",625,530,380,240);
@@ -215,7 +221,7 @@ boolean puedeescribir = false;
 
 void draw() {
   textFont(fuente);
-  println(cortacuerda);
+  println(eventofinal);
   switch(escenario){
   
    case 0:  //--------------------------------------------------escenario intro y menu
@@ -231,10 +237,10 @@ void draw() {
      text("Esta no parece ser mi habitacion...",100,200);
      }
    if(millis() > introduccion + 5000 && millis() < introduccion + 15000){
-     text("Alguien debio haberme traido aqui mientras dormia...\nPero...Quien fue?",100,300);
+     text("Alguien debio haberme traido aqui mientras dormia...\nNo entiendo nada!",100,300);
      }
    if(millis() > introduccion + 7500 && millis() < introduccion + 15000){
-     text("Como sea ... sera mejor que busque una forma\nde salir de aqui.",100,450);
+     text("Como sea ... sera mejor que busque una manera\nde salir de aqui.",100,450);
      }
      } else if (millis() > introduccion + 15000){  
 */     if(!salasound.isPlaying())
@@ -304,7 +310,7 @@ void draw() {
    
    palaobjeto.interactuarPala();
    
-   if(millis()>resetevento+1000 && millis()<resetevento+7000)
+   if(millis() > resetevento+1000 && millis() < resetevento+7000)
    outside.display();
    
    pj.x = constrain(pj.x,10,1300);
@@ -321,8 +327,9 @@ void draw() {
    escenario = 5;
    pj.x = 0;}
    
-   if((key == 'r' || key == 'R') && crecimiento == true) //se escala la planta y se reproduce el final del juego.
-   escenario = 6;
+   if((key == 'r' || key == 'R') && crecimiento == true){ //se escala la planta y se reproduce el final del juego.
+   jardinsound.pause();
+   escenario = 6;}
    break;
    
    case 5: //--------------------------------------------------escenario jardin2
@@ -345,7 +352,42 @@ void draw() {
    break;
    
    case 6:
+   if(!finaljuego.isPlaying())
+   finaljuego.play();
    
+   background(0);
+   stroke(0,0,69);
+   strokeWeight(25);
+   noFill();
+   rect(0,0,width,height);
+   fill(222,191,65);
+   textAlign(LEFT);
+   
+   if(millis() < eventofinal+25000){
+    if(millis() > eventofinal+1500 && millis() < eventofinal+25000)
+    text("Me pregunto que hay detras del muro...Eh, espera, que es esto??",30,100);
+    if(millis() > eventofinal+8500 && millis() < eventofinal+25000)
+    text("Ahh!! Pero... esta es mi habitacion, entonces, todo\nfue una pesadilla??",30,250);
+    if(millis() > eventofinal+12500 && millis() < eventofinal+25000)
+    text("Me duele el estomago... no debi haber comido tantas galletas.",30,450);
+    if(millis() > eventofinal+19000 && millis() < eventofinal+25000)
+    text("Bueno, al menos nada de eso fue real...",30,600); 
+    }
+   if(millis() > eventofinal+25000 && millis() < eventofinal+32000){
+   fill(17,16,50);
+   rect(0,0,width,height);
+   image(pjtriste,360,208);}
+   if(millis() > eventofinal+28500 && millis() < eventofinal+32000){
+   fill(210,210,110);
+   rect(0,0,width,height);
+   image(pjfeliz,360,208);}
+   if(millis() > eventofinal+32000 && millis() < eventofinal+36000)
+   text("O si lo fue...?",520,360);
+   if(millis() > eventofinal+36000 && millis() < eventofinal+44500){
+   textSize(50);
+   text("CONTINUARA",470,360);}
+   else if(millis() > eventofinal+44500)
+   exit();  //Termina el juego.
    break;
   }
   
@@ -381,6 +423,8 @@ void draw() {
    image(cuerdaused,990,345);
    if(llenado == true)
    image(cubetallena,840,350);
+   if(crecimiento == true)
+   image(cubetaused,840,350);
    }
    
    if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1)  //Puzzle de la constraseña
@@ -490,11 +534,10 @@ void keyPressed(){
   
   if(pj.x +60 > tumba.x && pj.x +40 < tumba.x + tumba.w && escenario == 5)
   box.trigger();
-  
-  if((key == 'r' || key == 'R') && crecimiento == true && escenario == 4) //controla tiempo de evento final del juego
-  eventofinal = millis();
-  
   }
+  
+  if((key == 'r' || key == 'R') && crecimiento == true && (escenario == 4 || escenario == 6)) //controla tiempo de evento final del juego
+  eventofinal = millis();
   
 
 }

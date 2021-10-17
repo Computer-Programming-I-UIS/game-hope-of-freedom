@@ -4,9 +4,10 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   Item(int xp, int yp, int wp, int hp){
   super(xp,yp,wp,hp);
   }
-  
-  void interactuarC(){  //interacciones con el cuadro de la galleta
-  if((key == 'w' || key == 'W')&& pj.x +60 > x && pj.x +40 < x + w){ 
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------  
+  void interaccionesSala1(){  
+  if((key == 'w' || key == 'W')&& pj.x +60 > cuadro.x && pj.x +40 < cuadro.x + cuadro.w){ //interacciones con el cuadro de la galleta
   if(luzlamp == false){
   cuad1.display();}
   else if (luzlamp == true){
@@ -15,24 +16,18 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   estadocuadro = 2;
   estadocajon = 2;
   puerta1.abierta = true;}
-  
   }
-  
-  }  
-  
-  void interactuarB(){ //interacciones con el cajon donde esta la bateria
-  if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+    
+  if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w){ //interacciones con el cajon donde esta la bateria
   if(estadocajon == 0)
   bat0.display();
   if(estadocajon == 3){
   bat1.display();
   text("Has conseguido una bateria!\n(Si presionas E se abre el inventario)",420,100);
   }
-  } 
-  }  
+  }   
 
-  void interactuarL(){ //interacciones con la lampara  
-  if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+  if((key == 'w' || key == 'W') && pj.x +60 > lampara.x && pj.x +40 < lampara.x + lampara.w){ //interacciones con la lampara
   if(estadobateria == 1){
    lamp1.display();
   }
@@ -43,27 +38,24 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   if(estadocajon == 2){
   lamp3.display();  
   }
-} 
-}
+  } 
 
-  void interactuarT(){ //interaccion con el tablero
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){  
+   if((key == 'w' || key == 'W') && pj.x +60 > tablero.x && pj.x +40 < tablero.x + tablero.w){   //interaccion con el tablero
    textSize(30);  
    tabler1.display();
    estadocajon = 1;
    }
+}
 
-   }
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
    
-   void interactuarCartel(){ //interaccion con el cartel del jardin
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   void interaccionesJardin(){ 
+   if((key == 'w' || key == 'W') && pj.x +60 > cartel.x && pj.x +40 < cartel.x + cartel.w){ //interaccion con el cartel del jardin
    textSize(33);  
    cart.display(); 
    }
-   }
-   
-   void interactuarColump(){ //interaccion con columpio del jardin
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+  
+   if((key == 'w' || key == 'W') && pj.x +60 > columpio.x && pj.x +40 < columpio.x + columpio.w){  //interaccion con columpio del jardin
    if(changesuelo == false)  
    colump1.display();
    else if(changesuelo == true){
@@ -71,10 +63,8 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    cortacuerda = true;
    text("Has conseguido una cuerda",320,100);}
    }
-   }
-   
-   void interactuarFlor(){ //interaccion con flor del jardin
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+    
+   if((key == 'w' || key == 'W') && pj.x +60 > flor.x && pj.x +40 < flor.x + flor.w){ //interaccion con flor del jardin
    if(getpala == false)  
    flor1.display(); 
    if(getpala == true)
@@ -84,10 +74,8 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    crecimiento = true;
    text("Presiona R para escalar la planta",350,100);}
    }
-   }
    
-   void interactuarPala(){
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   if((key == 'w' || key == 'W') && pj.x +60 > palaobjeto.x && pj.x +40 < palaobjeto.x + palaobjeto.w){ //interaccion con pala del jardin
    if(knowstumba == false)
    pala0.display();
    else if(knowstumba == true && changesuelo == false){
@@ -95,10 +83,12 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    getpala = true;
    text("Has conseguido una pala!",320,100);}
    }
-   }
+}
    
-   void interactuarPozo(){
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   void interaccionesJardin2(){
+   if((key == 'w' || key == 'W') && pj.x +60 > pozo.x && pj.x +40 < pozo.x + pozo.w){ //interacciones con el pozo del jardin 2
    if(changesuelo == false)
    pozo1.display();
    if(changesuelo == true)
@@ -108,10 +98,8 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    text("Llenaste la cubeta con agua",320,100);
    llenado = true;}
    }
-   }
    
-   void interactuarTumba(){
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   if((key == 'w' || key == 'W') && pj.x +60 > tumba.x && pj.x +40 < tumba.x + tumba.w){ //interacciones con la tumba del jardin 2
    if(getpala == false){  
    tumba1.display();
    knowstumba = true;}
@@ -121,12 +109,20 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    tumba2.display();
    text("Has conseguido una cubeta!",320,100);}
    }
-   }
+}
    
-   void interactuarHoja1(){
-   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   void interaccionesSalasegunda(){
+   if((key == 'w' || key == 'W') && pj.x +60 > hoja1.x && pj.x +40 < hoja1.x + hoja1.w){
    textSize(30);  
    textohoja1.display();  
+   }
+   if((key == 'w' || key == 'W') && pj.x +60 > hoja2.x && pj.x +40 < hoja2.x + hoja2.w){
+   textSize(30);  
+   textohoja2.display();  
+   }
+   if((key == 'w' || key == 'W') && pj.x +60 > hoja3.x && pj.x +40 < hoja3.x + hoja3.w){
+   textSize(33);
+   textohoja3.display();  
    }
    }
    

@@ -108,6 +108,8 @@ Textbox tumba1;
 Textbox tumba2;
 Textbox doorIntermedia;
 Textbox textohoja1;
+Textbox textohoja2;
+Textbox textohoja3;
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
@@ -221,9 +223,11 @@ void setup() {
  tumba2 = new Textbox("Parece un buen lugar para usar la pala...veamos...\nSu madre tenia razon, esto no es un casco, es una cubeta...\nbueno, no hice esto para nada, me llevo la cubeta.",625,530,380,240);
  doorIntermedia = new Textbox("No quiero volver ahi, prefiero seguir avanzando...",625,570,380,240);
  hoja1 = new Item(350,360,50,130);
- textohoja1 = new Textbox("La pagina dice: \"Querido diario, hoy mama nos preparo galletas a\nmi y a mis amigos, yo me comi 2, estaban muy ricas y yo\nqueria repetir pero cuando fui a ver la bandeja estaba\nvacia, no entendia porque, si mama preparo 15 para los 3.\"",625,530,380,240);
+ textohoja1 = new Textbox("La pagina dice: \"Querido diario, hoy mama nos preparo galletas a\nmi y a mis amigos, yo me comi 2, estaban muy ricas y yo\nqueria repetir pero cuando fui a ver la bandeja estaba\nvacia, no entendia porque, si mama preparo 15 para los 3.\"",625,520,380,240);
  hoja2 = new Item(450,360,50,130);
+ textohoja2 = new Textbox("Pense que todos comeriamos 5 galletas pero al parecer\nellos se llevaron todas las demas. Resulta que Jose se\ncomio 6, y Miguel se comio...ehm, no lo recuerdo,\nbueno no importa.",625,520,380,240);
  hoja3 = new Item(600,360,50,130);
+ textohoja3 = new Textbox("El caso es que hay buenas noticias, le dije a mama lo que\npaso y me preparo una mucho mas grande y y deliciosa para mi\nsolito, la guardare para comerla mas tarde en la caja especial...",625,540,380,240);
  
 
 }
@@ -286,13 +290,13 @@ void draw() {
    puerta1.Detect();
    puerta1.viajar2();
    cuadro.Detect();
-   cuadro.interactuarC();
+   cuadro.interaccionesSala1();
    cajonbateria.Detect();
-   cajonbateria.interactuarB();
+   cajonbateria.interaccionesSala1();
    lampara.Detect();
-   lampara.interactuarL();
+   lampara.interaccionesSala1();
    tablero.Detect();
-   tablero.interactuarT();
+   tablero.interaccionesSala1();
    break;
    
    case 3: //--------------------------------------------------escenario creditos
@@ -321,7 +325,7 @@ void draw() {
    
    pj.displayYmover();
    
-   palaobjeto.interactuarPala();
+   palaobjeto.interaccionesJardin();
    
    if(millis() > resetevento+1000 && millis() < resetevento+7000)
    outside.display();
@@ -330,11 +334,11 @@ void draw() {
    puerta2.Detect();
    puerta2.interactuarS();
    cartel.Detect();
-   cartel.interactuarCartel();
+   cartel.interaccionesJardin();
    columpio.Detect();
-   columpio.interactuarColump();
+   columpio.interaccionesJardin();
    flor.Detect();
-   flor.interactuarFlor();
+   flor.interaccionesJardin();
    
    if(pj.x > 1290){
    escenario = 5;
@@ -355,9 +359,9 @@ void draw() {
    pj.x = constrain(pj.x,-80,880);
    
    pozo.Detect();
-   pozo.interactuarPozo();
+   pozo.interaccionesJardin2();
    tumba.Detect();
-   tumba.interactuarTumba();
+   tumba.interaccionesJardin2();
    
    if(pj.x < -60){
    escenario = 4;  
@@ -411,9 +415,11 @@ void draw() {
    intermedia.Detect();
    intermedia.interactuarIntermedia();
    hoja1.Detect();
-   hoja1.interactuarHoja1();
    hoja2.Detect();
    hoja3.Detect();
+   hoja1.interaccionesSalasegunda();
+   hoja2.interaccionesSalasegunda();
+   hoja3.interaccionesSalasegunda();
 
    break;
   }
@@ -566,6 +572,12 @@ void keyPressed(){
   box.trigger();
 
   if(pj.x +60 > hoja1.x && pj.x +40 < hoja1.x + hoja1.w && escenario == 7)
+  box.trigger();
+  
+  if(pj.x +60 > hoja2.x && pj.x +40 < hoja2.x + hoja2.w && escenario == 7)
+  box.trigger();
+  
+  if(pj.x +60 > hoja3.x && pj.x +40 < hoja3.x + hoja3.w && escenario == 7)
   box.trigger();
 
   }

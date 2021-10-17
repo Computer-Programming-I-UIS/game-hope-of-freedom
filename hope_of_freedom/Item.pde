@@ -134,7 +134,9 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    cofre1.display();
    if(estadocofre == 2){
    cofre2.display();
-   text("Has conseguido una galleta de chocolate",450,100);}
+   text("Has conseguido una galleta de chocolate",450,100);
+   getgalleta = true;
+   abierta2 = true;}
    }
    
    

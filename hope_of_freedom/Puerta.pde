@@ -29,4 +29,16 @@ class Puerta extends Objinter { //Para cambiar de escenario si se cumplen las co
    }
    }
    
+   void interactuarAlexterior(){
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   if(abierta2 == false)
+   alexterior1.display();  
+   if(abierta2 == true){
+   markgalleta = true;  
+   pj.x = 150;  
+   escenario = 4;
+   salasound.pause();}
+   } 
+   }
+   
 }

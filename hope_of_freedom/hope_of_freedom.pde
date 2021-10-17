@@ -41,6 +41,8 @@ PImage cuerdaused;
 PImage pjtriste;
 PImage pjfeliz;
 PImage salasegunda;
+PImage galleta;
+PImage galletaused;
 
 //variables globales
 int escenario = 0;  //el juego empieza en el menu
@@ -114,6 +116,7 @@ Textbox textohoja2;
 Textbox textohoja3;
 Textbox cofre1;
 Textbox cofre2;
+Textbox alexterior1;
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
@@ -167,6 +170,8 @@ void setup() {
  pjtriste = loadImage("pjtriste.png");
  pjfeliz = loadImage("pjfeliz.png");
  salasegunda = loadImage("segundasala.png");
+ galleta = loadImage("galleta.png");
+ galletaused = loadImage("galletaused.png");
  
  //-------------------------------- crear objetos 
  introduccion = millis();
@@ -236,6 +241,7 @@ void setup() {
  cofre = new Item(740,360,50,130);
  cofre1 = new Textbox("Esta cosa tambien necesita una clave para abrirse.",625,570,380,240);
  cofre2 = new Textbox("Es la galleta que se menciona en el diaro,\nno tengo hambre pero me la llevare para mas tarde\n es mejor que dejarla aqui sin que nadie la coma.",625,540,380,240);
+ alexterior1 = new Textbox("Esta cerrada, tiene una ranura para\ndepositar algo, pero la chispa no funciona,\nentonces...como se abre esta puerta?",625,540,380,240);
  
 
 }
@@ -249,9 +255,13 @@ boolean sabepassword2 = false;
 boolean puedeescribir2 = false;
 int estadocofre = 0;
 
+boolean getgalleta = false;
+boolean markgalleta = false;
+boolean abierta2 = false;
+
 void draw() {
   textFont(fuente);
-  println(puedeescribir);
+  println(abierta2);
   switch(escenario){
   
    case 0:  //--------------------------------------------------escenario intro y menu
@@ -436,6 +446,7 @@ void draw() {
    cofre.Detect();
    cofre.interaccionesSalasegunda();
    alexterior.Detect();
+   alexterior.interactuarAlexterior();
    break;
   }
   
@@ -460,20 +471,24 @@ void draw() {
    image(chispa,990,150);
    if(escenario == 4 || escenario == 5 || escenario == 7)
    image(chispaused,990,150);
+   if(getgalleta == true)
+   image(galleta,1130,150);
+   if(markgalleta == true)
+   image(galletaused,1130,150);
    if(getpala == true)
-   image(palainv,1130,150);
+   image(palainv,840,350);
    if(changesuelo == true)
-   image(palainvused,1130,150);
+   image(palainvused,840,350);
    if(changesuelo == true)
-   image(cubeta,840,350);
+   image(cubeta,990,350);
    if(cortacuerda == true)
-   image(cuerda,990,345);
+   image(cuerda,1130,345);
    if(llenado == true)
-   image(cuerdaused,990,345);
+   image(cuerdaused,1130,345);
    if(llenado == true)
-   image(cubetallena,840,350);
+   image(cubetallena,990,350);
    if(crecimiento == true)
-   image(cubetaused,840,350);
+   image(cubetaused,990,350);
    }
    
   
@@ -645,11 +660,13 @@ if(puedeescribir2 == true){
   
   if(pj.x +60 > cofre.x && pj.x +40 < cofre.x + cofre.w && escenario == 7)
   box.trigger();
+  
+  if(pj.x +60 > alexterior.x && pj.x +40 < alexterior.x + alexterior.w && escenario == 7)
+  box.trigger();
 
   }
   
   if((key == 'r' || key == 'R') && crecimiento == true && (escenario == 4 || escenario == 6)) //controla tiempo de evento final del juego
   eventofinal = millis();
   
-
 }

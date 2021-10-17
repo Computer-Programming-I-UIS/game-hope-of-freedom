@@ -110,9 +110,11 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    text("Has conseguido una cubeta!",320,100);}
    }
 }
-   
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
    void interaccionesSalasegunda(){
-   if((key == 'w' || key == 'W') && pj.x +60 > hoja1.x && pj.x +40 < hoja1.x + hoja1.w){
+   if((key == 'w' || key == 'W') && pj.x +60 > hoja1.x && pj.x +40 < hoja1.x + hoja1.w){ //interacciones con las 3 hojas
    textSize(30);  
    textohoja1.display();  
    }
@@ -122,8 +124,21 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    }
    if((key == 'w' || key == 'W') && pj.x +60 > hoja3.x && pj.x +40 < hoja3.x + hoja3.w){
    textSize(33);
-   textohoja3.display();  
+   textohoja3.display();
+   estadocofre = 1;
    }
+   
+   
+   if((key == 'w' || key == 'W') && pj.x +60 > cofre.x && pj.x +40 < cofre.x + cofre.w){ //interacciones con el cofre
+   if(estadocofre == 0)
+   cofre1.display();
+   if(estadocofre == 2){
+   cofre2.display();
+   text("Has conseguido una galleta de chocolate",450,100);}
+   }
+   
+   
+   
    }
    
 }   

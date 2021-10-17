@@ -67,6 +67,7 @@ Boton password;
 Player pj;
 Puerta puerta1;
 Puerta intermedia;
+Puerta alexterior;
 Puerta puerta2;
 Item lampara;
 Item cajonbateria;
@@ -80,6 +81,7 @@ Item tumba;
 Item hoja1;
 Item hoja2;
 Item hoja3;
+Item cofre;
 Item palaobjeto;
 Textbox bat0;
 Textbox bat1;
@@ -110,6 +112,8 @@ Textbox doorIntermedia;
 Textbox textohoja1;
 Textbox textohoja2;
 Textbox textohoja3;
+Textbox cofre1;
+Textbox cofre2;
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
@@ -186,6 +190,7 @@ void setup() {
  password = new Boton(525,560,180,70,textcon);
  puerta1 = new Puerta(1050,360,80,130);
  intermedia = new Puerta(150,360,80,130);
+ alexterior = new Puerta(930,360,100,130);
  puerta2 = new Puerta(100,360,80,130);
  cajonbateria = new Item(720,360,80,130);
  bat0 = new Textbox("Esta cerrado, creo que se abre\nintroduciendo una clave de 3 digitos",625,550,380,240);
@@ -225,9 +230,12 @@ void setup() {
  hoja1 = new Item(350,360,50,130);
  textohoja1 = new Textbox("La pagina dice: \"Querido diario, hoy mama nos preparo galletas a\nmi y a mis amigos, yo me comi 2, estaban muy ricas y yo\nqueria repetir pero cuando fui a ver la bandeja estaba\nvacia, no entendia porque, si mama preparo 15 para los 3.\"",625,520,380,240);
  hoja2 = new Item(450,360,50,130);
- textohoja2 = new Textbox("Pense que todos comeriamos 5 galletas pero al parecer\nellos se llevaron todas las demas. Resulta que Jose se\ncomio 6, y Miguel se comio...ehm, no lo recuerdo,\nbueno no importa.",625,520,380,240);
+ textohoja2 = new Textbox("\"Pense que todos comeriamos 5 galletas pero al parecer\nellos se llevaron todas las demas. Resulta que Jose se\ncomio 6, y Miguel se comio...ehm, no lo recuerdo,\nbueno no importa.\"",625,520,380,240);
  hoja3 = new Item(600,360,50,130);
- textohoja3 = new Textbox("El caso es que hay buenas noticias, le dije a mama lo que\npaso y me preparo una mucho mas grande y y deliciosa para mi\nsolito, la guardare para comerla mas tarde en la caja especial...",625,540,380,240);
+ textohoja3 = new Textbox("\"El caso es que hay buenas noticias, le dije a mama lo que\npaso y me preparo una mucho mas grande y y deliciosa para mi\nsolito, la guardare para comerla mas tarde en la caja especial...\"",625,530,380,240);
+ cofre = new Item(740,360,50,130);
+ cofre1 = new Textbox("Esta cosa tambien necesita una clave para abrirse.",625,570,380,240);
+ cofre2 = new Textbox("Es la galleta que se menciona en el diaro,\nno tengo hambre pero me la llevare para mas tarde\n es mejor que dejarla aqui sin que nadie la coma.",625,540,380,240);
  
 
 }
@@ -236,9 +244,14 @@ String textcon = "";
 boolean sabepassword = false;
 boolean puedeescribir = false;
 
+String textcon2 = "";
+boolean sabepassword2 = false;
+boolean puedeescribir2 = false;
+int estadocofre = 0;
+
 void draw() {
   textFont(fuente);
-  println(pj.x);
+  println(puedeescribir);
   switch(escenario){
   
    case 0:  //--------------------------------------------------escenario intro y menu
@@ -420,12 +433,15 @@ void draw() {
    hoja1.interaccionesSalasegunda();
    hoja2.interaccionesSalasegunda();
    hoja3.interaccionesSalasegunda();
-
+   cofre.Detect();
+   cofre.interaccionesSalasegunda();
+   alexterior.Detect();
    break;
   }
   
- 
-   if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1 && escenario != 3 && puedeescribir == false){ //abrir inventario
+//-------------------------------------------------TERMINA SWITCH DE ESCENARIOS
+
+   if((key == 'e' || key == 'E') && escenario != 0 && escenario != 1 && escenario != 3 && escenario != 6 && puedeescribir == false && puedeescribir2 == false){ //abrir inventario
    stroke(216,196,116);
    fill(17,16,50);
    rect(774,10,500,700);
@@ -442,7 +458,7 @@ void draw() {
    image(bateriaused,840,150);
    if(estadocuadro == 2)
    image(chispa,990,150);
-   if(escenario == 4 || escenario == 5)
+   if(escenario == 4 || escenario == 5 || escenario == 7)
    image(chispaused,990,150);
    if(getpala == true)
    image(palainv,1130,150);
@@ -460,9 +476,8 @@ void draw() {
    image(cubetaused,840,350);
    }
    
-   if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1)  //Puzzle de la constraseña
-   password.displayDetect();  
   
+//--------------------------------------------------------------------------------------------------------------------------------Setup del Puzzle de la contraseña 1
    if(puedeescribir == true){
    image(textboxi,60,450);
    text("(presione RETROCESO para borrar el digito escrito,\nPresione ENTER para intentar abrir la cerradura\nPresione B para dejar de escribir.)",650,70);
@@ -479,13 +494,30 @@ void draw() {
    puedeescribir = false;
    }
    
-   if (sabepassword) {
+   if (sabepassword == true) {
     estadobateria = 2;
     puedeescribir = false;
     estadocajon = 3;
    }
+//---------------------------------------------------------------------------------------------------------------------------------Setup del Puzzle de la contraseña 2
+   if(puedeescribir2 == true){
+   image(textboxi,60,450);
+   text("(presione RETROCESO para borrar el digito escrito,\nPresione ENTER para intentar abrir la cerradura\nPresione B para dejar de escribir.)",650,70);
+   password.displayDetect();  
+   text(textcon2,613,610);
+   textSize(30);
+   text("La clave, podria ser...\nla cantidad de galletas\nque comio cada chico?",320,540);
    
+   if(key == 'b' || key == 'B')
+   puedeescribir2 = false;
+   }
    
+   if (sabepassword2 == true) {
+    puedeescribir2 = false;
+    estadocofre = 2;
+   }
+
+
 
 }
 
@@ -493,10 +525,13 @@ void keyPressed(){
   if(key == ESC)//presionar ESC dentro del juego abre el menu de pausa en lugar de cerrar el programa
   key = 0;
   
-//--------------------------Para la contraseña del cajon-------------------------------------------------------------------
+//--------------------------Para la contraseña del cajon y el cofre-------------------------------------------------------------------
   if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && estadocajon == 1){
-  puedeescribir = true;
-  }
+  puedeescribir = true;}
+  
+  if((key == 'w' || key == 'W') && pj.x +60 > cofre.x && pj.x +40 < cofre.x + cofre.w && estadocofre == 1){
+  puedeescribir2 = true;}
+//------------------------------------------------------------------------------------------------------------------------------------
   
   if(puedeescribir == true){
    if (key == BACKSPACE) { //presionar retroceso elimina el ultimo caracter escrito
@@ -524,10 +559,38 @@ void keyPressed(){
     textcon = textcon.substring(0,3);
   }
   
+//-----------------------------------------------------------------------------------------------------------------------------
+
+if(puedeescribir2 == true){
+   if (key == BACKSPACE) { //presionar retroceso elimina el ultimo caracter escrito
+      if (textcon2.length()>0) {
+        textcon2 = textcon2.substring(0, textcon2.length()-1);
+      }
+    } 
+    else if (key == RETURN || key == ENTER) { //presionar Enter evalúa si la entrada del usuario es correcta o incorrecta
+      println ("ENTER");
+      if (textcon2.equals("267")) {
+        sabepassword2 = true;
+        correcto.trigger();
+        textcon2="";
+      }
+      else {
+        sabepassword2 = false;
+        incorrecto.trigger();
+        text("INCORRECTO",170,170);
+      }
+    }
+    else {
+      textcon2 += key;
+    }
+    if(textcon2.length()>3)
+    textcon2 = textcon2.substring(0,3);
+  }
+  
 //-----------------------------------------------------------------------------------------------------------------------------  
   
   //control de sonidos y algunos eventos
-  if((key == 'e' || key == 'E') && escenario != 0 && escenario !=1 && escenario !=3 && puedeescribir == false)
+  if((key == 'e' || key == 'E') && escenario != 0 && escenario !=1 && escenario !=3 && puedeescribir == false && puedeescribir2 == false)
   box.trigger();
   
   if(key == 'w' || key == 'W'){
@@ -578,6 +641,9 @@ void keyPressed(){
   box.trigger();
   
   if(pj.x +60 > hoja3.x && pj.x +40 < hoja3.x + hoja3.w && escenario == 7)
+  box.trigger();
+  
+  if(pj.x +60 > cofre.x && pj.x +40 < cofre.x + cofre.w && escenario == 7)
   box.trigger();
 
   }

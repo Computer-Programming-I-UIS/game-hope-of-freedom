@@ -40,6 +40,7 @@ PImage cuerda;
 PImage cuerdaused;
 PImage pjtriste;
 PImage pjfeliz;
+PImage salasegunda;
 
 //variables globales
 int escenario = 0;  //el juego empieza en el menu
@@ -65,6 +66,7 @@ Boton returnmenu;
 Boton password;
 Player pj;
 Puerta puerta1;
+Puerta intermedia;
 Puerta puerta2;
 Item lampara;
 Item cajonbateria;
@@ -75,6 +77,9 @@ Item columpio;
 Item flor;
 Item pozo;
 Item tumba;
+Item hoja1;
+Item hoja2;
+Item hoja3;
 Item palaobjeto;
 Textbox bat0;
 Textbox bat1;
@@ -101,7 +106,8 @@ Textbox pozo2;
 Textbox pozo3;
 Textbox tumba1;
 Textbox tumba2;
-
+Textbox doorIntermedia;
+Textbox textohoja1;
 
 
 float introduccion = 0;  //controla el tiempo de introduccion del juego.
@@ -154,6 +160,7 @@ void setup() {
  cuerdaused = loadImage("cuerdaused.png");
  pjtriste = loadImage("pjtriste.png");
  pjfeliz = loadImage("pjfeliz.png");
+ salasegunda = loadImage("segundasala.png");
  
  //-------------------------------- crear objetos 
  introduccion = millis();
@@ -176,6 +183,7 @@ void setup() {
  returnmenu = new Boton(823,560,400,100,"VOLVER AL MENU");
  password = new Boton(525,560,180,70,textcon);
  puerta1 = new Puerta(1050,360,80,130);
+ intermedia = new Puerta(150,360,80,130);
  puerta2 = new Puerta(100,360,80,130);
  cajonbateria = new Item(720,360,80,130);
  bat0 = new Textbox("Esta cerrado, creo que se abre\nintroduciendo una clave de 3 digitos",625,550,380,240);
@@ -211,6 +219,11 @@ void setup() {
  tumba = new Item(800,360,70,130);
  tumba1 = new Textbox("Una lapida, tiene algo escrito: Aqui yace mi casco\nfavorito, sigue funcionando pero mama dice que deje\nde usarlo y que no es un casco :(",625,530,380,240);
  tumba2 = new Textbox("Parece un buen lugar para usar la pala...veamos...\nSu madre tenia razon, esto no es un casco, es una cubeta...\nbueno, no hice esto para nada, me llevo la cubeta.",625,530,380,240);
+ doorIntermedia = new Textbox("No quiero volver ahi, prefiero seguir avanzando...",625,570,380,240);
+ hoja1 = new Item(350,360,50,130);
+ textohoja1 = new Textbox("La pagina dice: \"Querido diario, hoy mama nos preparo galletas a\nmi y a mis amigos, yo me comi 2, estaban muy ricas y yo\nqueria repetir pero cuando fui a ver la bandeja estaba\nvacia, no entendia porque, si mama preparo 15 para los 3.\"",625,530,380,240);
+ hoja2 = new Item(450,360,50,130);
+ hoja3 = new Item(600,360,50,130);
  
 
 }
@@ -221,7 +234,7 @@ boolean puedeescribir = false;
 
 void draw() {
   textFont(fuente);
-  println(eventofinal);
+  println(pj.x);
   switch(escenario){
   
    case 0:  //--------------------------------------------------escenario intro y menu
@@ -271,7 +284,7 @@ void draw() {
    pj.displayYmover();
    pj.x = constrain(pj.x,60,1120);
    puerta1.Detect();
-   puerta1.viajarJ();
+   puerta1.viajar2();
    cuadro.Detect();
    cuadro.interactuarC();
    cajonbateria.Detect();
@@ -351,7 +364,7 @@ void draw() {
    pj.x = 1280;}
    break;
    
-   case 6:
+   case 6: //-----------------------------------------------------escenario final del juego
    if(!finaljuego.isPlaying())
    finaljuego.play();
    
@@ -388,6 +401,20 @@ void draw() {
    text("CONTINUARA",470,360);}
    else if(millis() > eventofinal+44500)
    exit();  //Termina el juego.
+   break;
+   
+   case 7: //-----------------------------------------------------------escenario sala segunda.
+   background(salasegunda);
+   pj.displayYmover();
+   pj.x = constrain(pj.x,15,995);
+   
+   intermedia.Detect();
+   intermedia.interactuarIntermedia();
+   hoja1.Detect();
+   hoja1.interactuarHoja1();
+   hoja2.Detect();
+   hoja3.Detect();
+
    break;
   }
   
@@ -534,6 +561,13 @@ void keyPressed(){
   
   if(pj.x +60 > tumba.x && pj.x +40 < tumba.x + tumba.w && escenario == 5)
   box.trigger();
+  
+  if(pj.x +60 > intermedia.x && pj.x +40 < intermedia.x + intermedia.w && escenario == 7)
+  box.trigger();
+
+  if(pj.x +60 > hoja1.x && pj.x +40 < hoja1.x + hoja1.w && escenario == 7)
+  box.trigger();
+
   }
   
   if((key == 'r' || key == 'R') && crecimiento == true && (escenario == 4 || escenario == 6)) //controla tiempo de evento final del juego

@@ -123,5 +123,11 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    }
    }
    
+   void interactuarHoja1(){
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   textSize(30);  
+   textohoja1.display();  
+   }
+   }
    
 }   

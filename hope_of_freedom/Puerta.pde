@@ -6,13 +6,12 @@ class Puerta extends Objinter { //Para cambiar de escenario si se cumplen las co
   super(xp,yp,wp,hp);
   }
   
-  void viajarJ() {
+  void viajar2() {
    if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
    if(abierta == true){
    pj.x = 150; 
-   escenario = 4;
+   escenario = 7;
    estadocuadro = 3;
-   salasound.pause();
    } else p1.display();
    }
   
@@ -21,6 +20,12 @@ class Puerta extends Objinter { //Para cambiar de escenario si se cumplen las co
    void interactuarS() {
    if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
    doorS.display();
+   }
+   }
+   
+   void interactuarIntermedia(){
+   if((key == 'w' || key == 'W') && pj.x +60 > x && pj.x +40 < x + w){
+   doorIntermedia.display();
    }
    }
    

@@ -270,7 +270,7 @@ void draw() {
    fill(5,7,15);
    rect(0,0,width,height);
    
-/*    if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
+    if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
      fill(222,191,65);
      text("Pero... Que es este lugar?!!",100,100);
    if(millis() > introduccion + 2500 && millis() < introduccion + 15000){
@@ -283,7 +283,7 @@ void draw() {
      text("Como sea ... sera mejor que busque una manera\nde salir de aqui.",100,450);
      }
      } else if (millis() > introduccion + 15000){  
-*/     if(!salasound.isPlaying())
+     if(!salasound.isPlaying())
      salasound.loop();
      image(menu,0,0);
      jugar.displayDetect();
@@ -294,7 +294,7 @@ void draw() {
      creditos.updateCreditos();
      salir.displayDetect();
      salir.updateSalir(); 
-//     }
+     }
      break;
    
    case 1: //--------------------------------------------------escenario instrucciones de juego
@@ -327,7 +327,7 @@ void draw() {
    volver.displayDetect();
    volver.updateVolver();
    textAlign(LEFT);
-   text("Agradezo a:\n\nCrafton Gaming, por aportar su fuente de texto Minecraft\npara uso gratuito.\n\nShadyDave, por permitir el uso gratuito de su musica que fue\nutilizada en este juego.\n\nCBJ_Student, blouhound, unadamlar, StavSounds, y a Kickhat\npor permitir el uso gratuito de efectos de sonido\nutilizados en el juego.",50,70);
+   text("Agradezo a:\n\nCrafton Gaming, por aportar su fuente de texto Minecraft\npara uso gratuito.\n\nShadyDave, y Bensound por permitir el uso gratuito de su\nmusica que fue utilizada en este juego.\n\nCBJ_Student, blouhound, unadamlar, StavSounds, y a Kickhat\npor permitir el uso gratuito de efectos de sonido\nutilizados en el juego.",50,70);
    break;
    
    case 4: //--------------------------------------------------escenario jardin1

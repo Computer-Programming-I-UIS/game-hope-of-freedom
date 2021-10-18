@@ -1,5 +1,5 @@
 # 🍪 Hope of freedom 🍪
-![menu](https://github.com/Computer-Programming-I-UIS/game-hope-of-freedom/blob/master/hope_of_freedom/Data/menu.png)
+![menu](https://github.com/Computer-Programming-I-UIS/game-hope-of-freedom/blob/master/hope_of_freedom/Data/banner.png)
 # 💻 Hecho por
 * Daniel Ricardo Guerrero Cruz - 2200535
 # Clasificación y Género 🔍

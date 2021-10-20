@@ -257,6 +257,7 @@ int estadocofre = 0;
 
 boolean getgalleta = false;
 boolean markgalleta = false;
+boolean abierta = false;
 boolean abierta2 = false;
 
 void draw() {
@@ -440,11 +441,11 @@ void draw() {
    hoja1.Detect();
    hoja2.Detect();
    hoja3.Detect();
-   hoja1.interaccionesSalasegunda();
-   hoja2.interaccionesSalasegunda();
-   hoja3.interaccionesSalasegunda();
+   hoja1.interaccionesSala2();
+   hoja2.interaccionesSala2();
+   hoja3.interaccionesSala2();
    cofre.Detect();
-   cofre.interaccionesSalasegunda();
+   cofre.interaccionesSala2();
    alexterior.Detect();
    alexterior.interactuarAlexterior();
    break;
@@ -621,9 +622,8 @@ if(puedeescribir2 == true){
   if(pj.x +60 > tablero.x && pj.x +40 < tablero.x + tablero.w && escenario == 2)
   box.trigger();
   
-  if(pj.x +60 > puerta1.x && pj.x +40 < puerta1.x + puerta1.w && escenario == 2){
+  if(pj.x +60 > puerta1.x && pj.x +40 < puerta1.x + puerta1.w && escenario == 2)
   box.trigger();
-  resetevento=millis();}
   
   if(pj.x +60 > puerta2.x && pj.x +40 < puerta2.x + puerta2.w && escenario == 4)
   box.trigger();
@@ -661,8 +661,9 @@ if(puedeescribir2 == true){
   if(pj.x +60 > cofre.x && pj.x +40 < cofre.x + cofre.w && escenario == 7)
   box.trigger();
   
-  if(pj.x +60 > alexterior.x && pj.x +40 < alexterior.x + alexterior.w && escenario == 7)
+  if(pj.x +60 > alexterior.x && pj.x +40 < alexterior.x + alexterior.w && escenario == 7){
   box.trigger();
+  resetevento=millis();}
 
   }
   

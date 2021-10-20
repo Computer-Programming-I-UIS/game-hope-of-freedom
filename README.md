@@ -30,3 +30,6 @@ Se agradece a:
 * A Benjamin Tissot (también conocido como Bensound), por permitir el uso gratuito de música que fue utilizada en este juego. -> https://www.bensound.com/
 
 Todo los graficos del juego fueron creados en: https://www.pixilart.com/
+
+# Trailer Gameplay en Youtube
+https://www.youtube.com/watch?v=ywfMKxdRx0Y

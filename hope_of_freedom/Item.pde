@@ -15,7 +15,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   text("Has conseguido una chispa de chocolate!",420,100);
   estadocuadro = 2;
   estadocajon = 2;
-  puerta1.abierta = true;}
+  abierta = true;}
   }
     
   if((key == 'w' || key == 'W') && pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w){ //interacciones con el cajon donde esta la bateria
@@ -113,7 +113,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-   void interaccionesSalasegunda(){
+   void interaccionesSala2(){
    if((key == 'w' || key == 'W') && pj.x +60 > hoja1.x && pj.x +40 < hoja1.x + hoja1.w){ //interacciones con las 3 hojas
    textSize(30);  
    textohoja1.display();  

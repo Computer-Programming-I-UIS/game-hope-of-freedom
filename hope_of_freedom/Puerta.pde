@@ -1,7 +1,5 @@
 class Puerta extends Objinter { //Para cambiar de escenario si se cumplen las condiciones
-  
-  boolean abierta = false;
-  
+    
   Puerta(int xp, int yp, int wp, int hp){
   super(xp,yp,wp,hp);
   }

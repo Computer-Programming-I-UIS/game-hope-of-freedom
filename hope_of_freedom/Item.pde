@@ -6,13 +6,14 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------  
-  void interaccionesSala1(){  
+  void interaccionesSala1(){  //Estos medodos se dividen por escenarios porque no es necesario separarlos para cada objeto y asi es mas optimo, pero es recomendable separarlos para evitar inconvenientes.
   if((key == 'w' || key == 'W')&& pj.x +60 > cuadro.x && pj.x +40 < cuadro.x + cuadro.w){ //interacciones con el cuadro de la galleta
   if(luzlamp == false){
   cuad1.display();}
   else if (luzlamp == true){
   cuad2.display();
   text("Has conseguido una chispa de chocolate!",420,100);
+  nomChispa = true;
   estadocuadro = 2;
   estadocajon = 2;
   abierta = true;}
@@ -61,7 +62,8 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    else if(changesuelo == true){
    colump2.display();
    cortacuerda = true;
-   text("Has conseguido una cuerda",320,100);}
+   text("Has conseguido una cuerda",320,100);
+   nomCuerda = true;}
    }
     
    if((key == 'w' || key == 'W') && pj.x +60 > flor.x && pj.x +40 < flor.x + flor.w){ //interaccion con flor del jardin
@@ -81,7 +83,8 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    else if(knowstumba == true && changesuelo == false){
    pala1.display();
    getpala = true;
-   text("Has conseguido una pala!",320,100);}
+   text("Has conseguido una pala!",320,100);
+   nomPala = true;}
    }
 }
    
@@ -107,7 +110,8 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    changesuelo = true;
    textSize(35);
    tumba2.display();
-   text("Has conseguido una cubeta!",320,100);}
+   text("Has conseguido una cubeta!",320,100);
+   nomCubeta = true;}
    }
 }
 
@@ -135,6 +139,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    if(estadocofre == 2){
    cofre2.display();
    text("Has conseguido una galleta de chocolate",450,100);
+   nomGalleta = true;
    getgalleta = true;
    abierta2 = true;}
    }

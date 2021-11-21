@@ -14,6 +14,7 @@ Requiere instalar la librería Minim.
 **************************************************+++++++++++++++++++++++++++++++++++++++++++++++++******/
 
 PFont fuente;
+PImage cursor;
 PImage menu;
 PImage controles;
 PImage player1;  //spritesheet del pj
@@ -50,6 +51,14 @@ int savestate = 0;  //guarda el valor del último e
 int estadobateria = 1;
 int estadocajon = 0;
 int estadocuadro = 1;
+
+boolean nomBateria = false;
+boolean nomChispa = false;
+boolean nomGalleta = false;
+boolean nomPala = false;
+boolean nomCubeta = false;
+boolean nomCuerda = false;
+
 boolean luzlamp = false;
 boolean getpala = false;
 boolean knowstumba = false;
@@ -124,6 +133,20 @@ float resetevento = 0;
 float eventofinal = 0;
 String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pausa
 
+String textcon = "";
+boolean sabepassword = false;
+boolean puedeescribir = false;
+
+String textcon2 = "";
+boolean sabepassword2 = false;
+boolean puedeescribir2 = false;
+int estadocofre = 0;
+
+boolean getgalleta = false;
+boolean markgalleta = false;
+boolean abierta = false;
+boolean abierta2 = false;
+
 //Libreria Minim
 import ddf.minim.*;
 Minim minim;
@@ -136,7 +159,7 @@ AudioSample correcto;
 AudioSample incorrecto;
 
 
-void setup() {
+void setup() {//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
  size(1284,720);
  frameRate(60);
@@ -172,7 +195,10 @@ void setup() {
  salasegunda = loadImage("segundasala.png");
  galleta = loadImage("galleta.png");
  galletaused = loadImage("galletaused.png");
+ cursor = loadImage("cursor.png");
  
+ cursor(cursor,8,3);
+
  //-------------------------------- crear objetos 
  introduccion = millis();
  
@@ -243,24 +269,10 @@ void setup() {
  cofre2 = new Textbox("Es la galleta que se menciona en el diaro,\nno tengo hambre pero me la llevare para mas tarde\n es mejor que dejarla aqui sin que nadie la coma.",625,540,380,240);
  alexterior1 = new Textbox("Esta cerrada, tiene una ranura para\ndepositar algo, pero la chispa no funciona,\nentonces...como se abre esta puerta?",625,540,380,240);
  
+}//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-}
 
-String textcon = "";
-boolean sabepassword = false;
-boolean puedeescribir = false;
-
-String textcon2 = "";
-boolean sabepassword2 = false;
-boolean puedeescribir2 = false;
-int estadocofre = 0;
-
-boolean getgalleta = false;
-boolean markgalleta = false;
-boolean abierta = false;
-boolean abierta2 = false;
-
-void draw() {
+void draw() {//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   textFont(fuente);
   println(abierta2);
   switch(escenario){
@@ -464,34 +476,70 @@ void draw() {
    returnmenu.displayDetect();
    returnmenu.updateReturnmenu();
    savestate = escenario;
+   
+   if(nomBateria == true){
+   textSize(20);
+   text("BATERIA",880,300);
+   textSize(35);
    if(estadobateria == 2)
    image(bateria,840,150);
    if(luzlamp == true)
    image(bateriaused,840,150);
+   }
+   
+   if(nomChispa == true){
+   textSize(20);
+   text("CHISPA",1030,300);
+   textSize(35);
    if(estadocuadro == 2)
    image(chispa,990,150);
    if(escenario == 4 || escenario == 5 || escenario == 7)
    image(chispaused,990,150);
+   }
+   
+   if(nomGalleta == true){
+   textSize(20);
+   text("GALLETA",1170,300);
+   textSize(35);
    if(getgalleta == true)
    image(galleta,1130,150);
    if(markgalleta == true)
    image(galletaused,1130,150);
+   }
+   
+   if(nomPala == true){
+   textSize(20);
+   text("PALA",880,490);
+   textSize(35);
    if(getpala == true)
    image(palainv,840,350);
    if(changesuelo == true)
    image(palainvused,840,350);
+   }
+   
+   if(nomCubeta == true){
+   textSize(20);
+   text("CUBETA",1030,490);
+   textSize(35);
    if(changesuelo == true)
    image(cubeta,990,350);
-   if(cortacuerda == true)
-   image(cuerda,1130,345);
-   if(llenado == true)
-   image(cuerdaused,1130,345);
    if(llenado == true)
    image(cubetallena,990,350);
    if(crecimiento == true)
    image(cubetaused,990,350);
    }
    
+   if(nomCuerda == true){
+   textSize(20);
+   text("CUERDA",1170,490);
+   textSize(35);
+   if(cortacuerda == true)
+   image(cuerda,1130,345);
+   if(llenado == true)
+   image(cuerdaused,1130,345);
+   }
+   
+   }
   
 //--------------------------------------------------------------------------------------------------------------------------------Setup del Puzzle de la contraseña 1
    if(puedeescribir == true){
@@ -514,6 +562,7 @@ void draw() {
     estadobateria = 2;
     puedeescribir = false;
     estadocajon = 3;
+    nomBateria = true;
    }
 //---------------------------------------------------------------------------------------------------------------------------------Setup del Puzzle de la contraseña 2
    if(puedeescribir2 == true){
@@ -535,7 +584,7 @@ void draw() {
 
 
 
-}
+}//------------------------------------------------------------------------------------------------------------------------------------Termina Draw
 
 void keyPressed(){ 
   if(key == ESC)//presionar ESC dentro del juego abre el menu de pausa en lugar de cerrar el programa

@@ -12,7 +12,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   cuad1.display();}
   else if (luzlamp == true){
   cuad2.display();
-  text("Has conseguido una chispa de chocolate!",420,100);
+  text("Has conseguido una chispa de chocolate!",150,100);
   nomChispa = true;
   estadocuadro = 2;
   estadocajon = 2;
@@ -24,7 +24,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
   bat0.display();
   if(estadocajon == 3){
   bat1.display();
-  text("Has conseguido una bateria!\n(Si presionas E se abre el inventario)",420,100);
+  text("Has conseguido una bateria!\n(Si presionas E se abre el inventario)",150,100);
   }
   }   
 
@@ -52,7 +52,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    
    void interaccionesJardin(){ 
    if((key == 'w' || key == 'W') && pj.x +60 > cartel.x && pj.x +40 < cartel.x + cartel.w){ //interaccion con el cartel del jardin
-   textSize(33);  
+   textSize(30);  
    cart.display(); 
    }
   
@@ -62,19 +62,19 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    else if(changesuelo == true){
    colump2.display();
    cortacuerda = true;
-   text("Has conseguido una cuerda",320,100);
+   text("Has conseguido una cuerda",150,100);
    nomCuerda = true;}
    }
     
    if((key == 'w' || key == 'W') && pj.x +60 > flor.x && pj.x +40 < flor.x + flor.w){ //interaccion con flor del jardin
    if(getpala == false)  
    flor1.display(); 
-   if(getpala == true)
+   else if(getpala == true && llenado == false)
    flor2.display();
-   if(llenado == true){
+   else if(getpala == true && llenado == true){
    flor3.display();
    crecimiento = true;
-   text("Presiona R para escalar la planta",350,100);}
+   text("Presiona R para escalar la planta",150,100);}
    }
    
    if((key == 'w' || key == 'W') && pj.x +60 > palaobjeto.x && pj.x +40 < palaobjeto.x + palaobjeto.w){ //interaccion con pala del jardin
@@ -83,7 +83,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    else if(knowstumba == true && changesuelo == false){
    pala1.display();
    getpala = true;
-   text("Has conseguido una pala!",320,100);
+   text("Has conseguido una pala!",150,100);
    nomPala = true;}
    }
 }
@@ -94,12 +94,12 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    if((key == 'w' || key == 'W') && pj.x +60 > pozo.x && pj.x +40 < pozo.x + pozo.w){ //interacciones con el pozo del jardin 2
    if(changesuelo == false)
    pozo1.display();
-   if(changesuelo == true)
+   else if(changesuelo == true && cortacuerda == false)
    pozo2.display();
-   if(cortacuerda == true){
-   pozo3.display();
-   text("Llenaste la cubeta con agua",320,100);
-   llenado = true;}
+   else if(changesuelo == true && cortacuerda == true){
+   text("Llenaste la cubeta con agua",150,100);
+   llenado = true;
+   pozo3.display();}
    }
    
    if((key == 'w' || key == 'W') && pj.x +60 > tumba.x && pj.x +40 < tumba.x + tumba.w){ //interacciones con la tumba del jardin 2
@@ -110,7 +110,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    changesuelo = true;
    textSize(35);
    tumba2.display();
-   text("Has conseguido una cubeta!",320,100);
+   text("Has conseguido una cubeta!",150,100);
    nomCubeta = true;}
    }
 }
@@ -127,7 +127,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    textohoja2.display();  
    }
    if((key == 'w' || key == 'W') && pj.x +60 > hoja3.x && pj.x +40 < hoja3.x + hoja3.w){
-   textSize(33);
+   textSize(30);
    textohoja3.display();
    estadocofre = 1;
    }
@@ -138,7 +138,7 @@ class Item extends Objinter { //para objetos interactuables que no son puertas
    cofre1.display();
    if(estadocofre == 2){
    cofre2.display();
-   text("Has conseguido una galleta de chocolate",450,100);
+   text("Has conseguido una galleta de chocolate",150,100);
    nomGalleta = true;
    getgalleta = true;
    abierta2 = true;}

@@ -52,6 +52,8 @@ int estadobateria = 1;
 int estadocajon = 0;
 int estadocuadro = 1;
 
+int indice = 0;
+
 boolean nomBateria = false;
 boolean nomChispa = false;
 boolean nomGalleta = false;
@@ -132,6 +134,10 @@ float introduccion = 0;  //controla el tiempo de introduccion del juego.
 float resetevento = 0;
 float eventofinal = 0;
 String pausa = "PULSA CUALQUIER\nTECLA PARA CERRAR"; //mensaje en el menu de pausa
+String intro1 = "Pero... Que es este lugar?!!";
+String intro2 = "Esta no parece ser mi habitacion...";
+String intro3 = "Alguien debio haberme traido aqui mientras dormia...\nNo entiendo nada!";
+String intro4 = "Como sea ... sera mejor que busque una manera\nde salir de aqui.";
 
 String textcon = "";
 boolean sabepassword = false;
@@ -224,57 +230,58 @@ void setup() {//----------------------------------------------------------------
  alexterior = new Puerta(930,360,100,130);
  puerta2 = new Puerta(100,360,80,130);
  cajonbateria = new Item(720,360,80,130);
- bat0 = new Textbox("Esta cerrado, creo que se abre\nintroduciendo una clave de 3 digitos",625,550,380,240);
- bat1 = new Textbox("Funciona!! ahora la cerradura esta abierta! Esto es...\nuna bateria? Supongo que servira de algo.",628,560,380,240);
+ bat0 = new Textbox("Esta cerrado, creo que se abre introduciendo\nuna clave de 3 digitos...",200,550);
+ bat1 = new Textbox("Funciona!! ahora la cerradura esta abierta!\nEsto es...una bateria? Supongo que servira de algo.",150,560);
  lampara = new Item(420,360,80,130);
- lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",625,550,380,240);
- lamp2 = new Textbox("La bateria que tengo encaja en la lampara!!\nAhora el lugar esta mejor iluminado!",625,550,380,240);
- lamp3 = new Textbox("La lampara ya esta encendida...el brillo le da\nun mejor ambiente a esta claustrofobica situacion...",625,550,380,240);
+ lamp1 = new Textbox("Es una lampara apagada, parece que le falta\n algo para encenderse...",190,550);
+ lamp2 = new Textbox("La bateria que tengo encaja en la lampara!!\nAhora el lugar esta mejor iluminado!",205,550);
+ lamp3 = new Textbox("La lampara ya esta encendida...el brillo le da\nun mejor ambiente a esta claustrofobica situacion...",205,550);
  tablero = new Item(890,360,80,130);
- tabler1 = new Textbox("El tablero dice: Uno, Dos y Tres son  hermanos muy cercanos,\nUno tiene media decada\nDos ha vivido el doble que el hermano de menor edad\nTres le hace honor a su nombre...que edad tienen los hermanos?",625,515,380,240);
+ tabler1 = new Textbox("El tablero dice: Uno, Dos y Tres son  hermanos muy cercanos,\nUno tiene media decada\nDos ha vivido el doble que el hermano de menor edad\nTres le hace honor a su nombre...que edad tienen los hermanos?",175,515);
  cuadro = new Item(220,360,80,130);
- cuad1 = new Textbox("Es una pintura de una galleta con chispas\nde chocolate, se parece mucho a\nla que tengo en la camisa...",635,530,380,240);
- cuad2 = new Textbox("Hay una parte del cuadro que no esta pintada...\nEsto es...Una chispa de chocolate redonda??",625,550,380,240);
- doorS = new Textbox("No tengo razones para volver a ese lugar.",625,580,380,240);
- outside = new Textbox("Bien!! Logre salir de ahi, pero aun no se donde estoy\n...voy a ver que encuentro por el lugar...",625,550,380,240);
- p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",625,550,380,240);
+ cuad1 = new Textbox("Es una pintura de una galleta con chispas\nde chocolate, se parece mucho a\nla que tengo en la camisa...",205,530);
+ cuad2 = new Textbox("Hay una parte del cuadro que no esta pintada...\nEsto es...Una chispa de chocolate redonda??",190,550);
+ doorS = new Textbox("No tengo razones para volver a ese lugar.",205,580);
+ outside = new Textbox("Bien!! Logre salir de ahi, pero aun no se donde estoy\n...voy a ver que encuentro por el lugar...",150,550);
+ p1 = new Textbox("Esta cerrada... y no parece que se pueda\nabrir con una llave normal...",205,550);
  cartel = new Item(250,360,80,130);
- cart = new Textbox("El cartel dice: Que rapido crecen! te descuidas un\nmomento y ya se van de casa, buscando su propio camino...\npero, estas a la altura? No pareces ser lo suficientemente\ngrande para sobrepasar el muro de la vida.",630,520,380,240);
+ cart = new Textbox("El cartel dice: Que rapido crecen! te descuidas un\nmomento y ya se van de casa, buscando su propio camino...\npero, estas a la altura? No pareces ser lo suficientemente\ngrande para sobrepasar el muro de la vida.",180,520);
  columpio = new Item(570,360,50,130);
- colump1 = new Textbox("Es un columpio, me gustan pero este no es\nun buen momento para jugar.",625,550,380,240);
- colump2 = new Textbox("La cuerda que sostiene el columpio,\ncreo que la tomare ...podria servir para...",625,550,380,240);
+ colump1 = new Textbox("Es un columpio, me gustan pero este no es\nun buen momento para jugar.",200,550);
+ colump2 = new Textbox("La cuerda que sostiene el columpio,\ncreo que la tomare ...podria servir para...",200,550);
  flor = new Item(890,360,50,130);
- flor1 = new Textbox("Una flor roja, contrasta mucho con el resto del lugar...",625,580,380,240);
- flor2 = new Textbox("No quiero desenterrarla, se ve bien estando ahi...",625,580,380,240);
- flor3 = new Textbox("Seria una lastima que esta flor se seque,\nusare la cubeta para regarla...WOW PERO QUE?!!\nLa flor crecio de repente a la altura del muro...",625,530,380,240);
+ flor1 = new Textbox("Una flor roja, contrasta mucho\ncon el resto del lugar...",200,550);
+ flor2 = new Textbox("No quiero desenterrarla, se ve bien estando ahi...",170,580);
+ flor3 = new Textbox("Seria una lastima que esta flor se seque,\nusare la cubeta para regarla...WOW PERO QUE?!!\nLa flor crecio de repente a la altura del muro...",180,530);
  palaobjeto = new Item(450,360,50,130);
- pala0 = new Textbox("Una pala, es interesante pero por ahora no\nveo ninguna razon para recogerla",625,550,380,240);
- pala1 = new Textbox("Esta pala... La jardineria no es lo mio pero seguro que\nencuentro un buen uso para esta cosa...",625,570,380,240);
+ pala0 = new Textbox("Una pala, es interesante pero por ahora no\nveo ninguna razon para recogerla...",200,550);
+ pala1 = new Textbox("Esta pala... La jardineria no es lo mio pero seguro\nque encuentro un buen uso para esta cosa...",170,555);
  pozo = new Item(290,360,100,130);
- pozo1 = new Textbox("El agua del pozo...casi no se ve\npero espero que este limpia...",625,560,380,240);
- pozo2 = new Textbox("El agua esta muy en el fondo...no puedo llenar esta\ncubeta de esta manera...",625,560,380,240);
- pozo3 = new Textbox("Si, puedo usar la cuerda para bajar la cubeta\n y poder llenarla de agua...funciono!!",625,560,380,240);
+ pozo1 = new Textbox("El agua del pozo...casi no se ve\npero espero que este limpia...",200,550);
+ pozo2 = new Textbox("El agua esta muy en el fondo...no puedo llenar\nesta cubeta de esta manera...es una lastima...\npero bueno, sera mejor que explore mas el lugar.",170,530);
+ pozo3 = new Textbox("Si, puedo usar la cuerda para bajar la cubeta\n y llenarla de agua...bien!",200,560);
  tumba = new Item(800,360,70,130);
- tumba1 = new Textbox("Una lapida, tiene algo escrito: Aqui yace mi casco\nfavorito, sigue funcionando pero mama dice que deje\nde usarlo y que no es un casco :(",625,530,380,240);
- tumba2 = new Textbox("Parece un buen lugar para usar la pala...veamos...\nSu madre tenia razon, esto no es un casco, es una cubeta...\nbueno, no hice esto para nada, me llevo la cubeta.",625,530,380,240);
- doorIntermedia = new Textbox("No quiero volver ahi, prefiero seguir avanzando...",625,570,380,240);
+ tumba1 = new Textbox("Una lapida, tiene algo escrito: Aqui yace mi casco\nfavorito, sigue funcionando pero mama dice que\ndeje de usarlo y que no es un casco :(",170,530);
+ tumba2 = new Textbox("Parece un buen lugar para usar la pala...veamos...\nSu madre tenia razon, esto no es un casco, es una cubeta,\nbueno, no hice esto para nada, me llevo la cubeta.",160,530);
+ doorIntermedia = new Textbox("No quiero volver ahi, prefiero seguir avanzando...",160,570);
  hoja1 = new Item(350,360,50,130);
- textohoja1 = new Textbox("La pagina dice: \"Querido diario, hoy mama nos preparo galletas a\nmi y a mis amigos, yo me comi 2, estaban muy ricas y yo\nqueria repetir pero cuando fui a ver la bandeja estaba\nvacia, no entendia porque, si mama preparo 15 para los 3.\"",625,520,380,240);
+ textohoja1 = new Textbox("La pagina dice: \"Querido diario, hoy mama nos preparo galletas\na mi y a mis amigos, yo me comi 2, estaban muy ricas y yo\nqueria repetir pero cuando fui a ver la bandeja estaba\nvacia, no entendia porque, si mama preparo 15 para los 3.\"",170,520);
  hoja2 = new Item(450,360,50,130);
- textohoja2 = new Textbox("\"Pense que todos comeriamos 5 galletas pero al parecer\nellos se llevaron todas las demas. Resulta que Jose se\ncomio 6, y Miguel se comio...ehm, no lo recuerdo,\nbueno no importa.\"",625,520,380,240);
+ textohoja2 = new Textbox("\"Pense que todos comeriamos 5 galletas pero al parecer\nellos se llevaron todas las demas. Resulta que Jose se\ncomio 6, y Miguel se comio...ehm, no lo recuerdo,\nbueno no importa.\"",170,520);
  hoja3 = new Item(600,360,50,130);
- textohoja3 = new Textbox("\"El caso es que hay buenas noticias, le dije a mama lo que\npaso y me preparo una mucho mas grande y y deliciosa para mi\nsolito, la guardare para comerla mas tarde en la caja especial...\"",625,530,380,240);
+ textohoja3 = new Textbox("\"El caso es que hay buenas noticias, le dije a mama lo que\npaso y me preparo una mucho mas grande y y deliciosa\npara mi solito, la guardare para comerla mas tarde\nen la caja especial...\"",155,515);
  cofre = new Item(740,360,50,130);
- cofre1 = new Textbox("Esta cosa tambien necesita una clave para abrirse.",625,570,380,240);
- cofre2 = new Textbox("Es la galleta que se menciona en el diaro,\nno tengo hambre pero me la llevare para mas tarde\n es mejor que dejarla aqui sin que nadie la coma.",625,540,380,240);
- alexterior1 = new Textbox("Esta cerrada, tiene una ranura para\ndepositar algo, pero la chispa no funciona,\nentonces...como se abre esta puerta?",625,540,380,240);
+ cofre1 = new Textbox("Esta cosa tambien necesita una clave\npara abrirse.",205,570);
+ cofre2 = new Textbox("Es la galleta que se menciona en el diaro, no tengo\nhambre pero me la llevare para mas tarde\n es mejor que dejarla aqui sin que nadie la coma.",150,520);
+ alexterior1 = new Textbox("Esta cerrada, tiene una ranura para\ndepositar algo, pero la chispa no funciona,\nentonces...como se abre esta puerta?",200,530);
  
 }//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 void draw() {//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   textFont(fuente);
-  println(abierta2);
+ println(indice);
+
   switch(escenario){
   
    case 0:  //--------------------------------------------------escenario intro y menu
@@ -283,17 +290,17 @@ void draw() {//-----------------------------------------------------------------
    fill(5,7,15);
    rect(0,0,width,height);
    
-    if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
+   if(millis() < introduccion + 15000){  //Se muestra el texto de la intro
      fill(222,191,65);
-     text("Pero... Que es este lugar?!!",100,100);
+     text(intro1,100,100);
    if(millis() > introduccion + 2500 && millis() < introduccion + 15000){
-     text("Esta no parece ser mi habitacion...",100,200);
+     text(intro2,100,200);
      }
    if(millis() > introduccion + 5000 && millis() < introduccion + 15000){
-     text("Alguien debio haberme traido aqui mientras dormia...\nNo entiendo nada!",100,300);
+     text(intro3,100,300);
      }
    if(millis() > introduccion + 7500 && millis() < introduccion + 15000){
-     text("Como sea ... sera mejor que busque una manera\nde salir de aqui.",100,450);
+     text(intro4,100,450);
      }
      } else if (millis() > introduccion + 15000){  
      if(!salasound.isPlaying())
@@ -363,7 +370,7 @@ void draw() {//-----------------------------------------------------------------
    
    palaobjeto.interaccionesJardin();
    
-   if(millis() > resetevento+1000 && millis() < resetevento+7000)
+   if(millis() > resetevento+600 && millis() < resetevento+9000)
    outside.display();
    
    pj.x = constrain(pj.x,10,1300);
@@ -571,7 +578,7 @@ void draw() {//-----------------------------------------------------------------
    password.displayDetect();  
    text(textcon2,613,610);
    textSize(30);
-   text("La clave, podria ser...\nla cantidad de galletas\nque comio cada chico?",320,540);
+   text("3 digitos de nuevo...\ncual podria ser\nla clave?",320,540);
    
    if(key == 'b' || key == 'B')
    puedeescribir2 = false;
@@ -661,6 +668,7 @@ if(puedeescribir2 == true){
   if(key == 'w' || key == 'W'){
   if(pj.x +60 > cuadro.x && pj.x +40 < cuadro.x + cuadro.w && escenario == 2)
   box.trigger();
+  else indice = 0;
   
   if(pj.x +60 > cajonbateria.x && pj.x +40 < cajonbateria.x + cajonbateria.w && escenario == 2)
   box.trigger();
@@ -682,6 +690,7 @@ if(puedeescribir2 == true){
   
   if(pj.x +60 > columpio.x && pj.x +40 < columpio.x + columpio.w && escenario == 4)
   box.trigger();
+  else indice = 0;
   
   if(pj.x +60 > flor.x && pj.x +40 < flor.x + flor.w && escenario == 4)
   box.trigger();
